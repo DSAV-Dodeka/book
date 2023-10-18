@@ -31,9 +31,6 @@ jobs:
       - uses: dtolnay/install@master
         with:
           crate: mdbook
-      - uses: dtolnay/install@master
-        with:
-          crate: mdbook-katex
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v3
