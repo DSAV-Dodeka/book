@@ -37,16 +37,7 @@ Variables that are more "runtime" are loaded in by `env.py`. These are only acce
 
 To prevent circular imports, no module may depend on a module below itself in this list:
 
-* resources
-* define
-* define.*
-* utilities
-* db/kv
-* env
-* data
-* auth
-* routers
-* app
+#### TODO UPDATE
 
 
 ### Database migrations
