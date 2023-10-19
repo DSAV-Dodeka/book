@@ -29,6 +29,7 @@
     - [Server](./deployment/server.md)
     - [Environments](./deployment/envs.md)
     - [Production](./deployment/production.md)
+        - [nginx and SSL certificates](./deployment/production/nginx_ssl.md)
     - [Secrets](./deployment/secrets.md)
     - [Database](./deployment/database.md)
         - [Upgrade Postgres major version](./deployment/database/upgrade_db.md)
