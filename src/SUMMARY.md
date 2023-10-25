@@ -33,3 +33,4 @@
     - [Secrets](./deployment/secrets.md)
     - [Database](./deployment/database.md)
         - [Upgrade Postgres major version](./deployment/database/upgrade_db.md)
+        - [Migrate database schema](./deployment/database/migrate_db.md)

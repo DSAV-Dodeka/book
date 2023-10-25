@@ -12,3 +12,15 @@ Before you can run `apiserver` locally, you must have a Postgres and Redis datab
 ### Running for the first time
 
 If you are running the server for the first time and/or the database is empty, be sure to set RECREATE="yes" in the env config file (i.e. `devenv.toml`). Be sure to set it back to "no" after doing this once, or otherwise it recreate it each time.
+
+### Database migrations
+
+We can use Alembic for migrations, which allow you to programatically apply large schema changes to your database.
+
+First you need to have the Poetry environment running as described earlier and ensure the database is on as well. 
+
+* Navigate to the ./src/schema directory.
+* From there run `poetry run alembic revision --autogenerate -m "Some message"`
+* This will generate a Python file in the migrations/versions directory, which you can view to see if everything looks good. It basically looks at the database, looks at the schema described in db/model.py and generates code to migrate to the described schema.
+* Then, you can run `poetry run alembic upgrade head`, which will apply the latest generated revision. If you now use your database viewer, the table will have hopefully appeared.
+* If there is a mismatch with the current revision, use `poetry run alembic stamp head` before the above 2 commmands.

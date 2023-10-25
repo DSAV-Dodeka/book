@@ -39,19 +39,6 @@ To prevent circular imports, no module may depend on a module below itself in th
 
 #### TODO UPDATE
 
-
-### Database migrations
-
-We can use Alembic for migrations, which allow you to programatically apply large schema changes to your database.
-
-First you need to have the Poetry environment running as described earlier and ensure the database is on as well. 
-
-* Navigate to the /server/src/schema directory.
-* From there run `poetry run alembic revision --autogenerate -m "Some message"`
-* This will generate a Python file in the migrations/versions directory, which you can view to see if everything looks good. It basically looks at the database, looks at the schema described in db/model.py and generates code to migrate to the described schema.
-* Then, you can run `poetry run alembic upgrade head`, which will apply the latest generated revision. If you now use your database viewer, the table will have hopefully appeared.
-* If there is a mismatch with the current revision, use `poetry run alembic stamp head` before the above 2 commmands.
-
 ### Important to keep in mind
 
 Always add a trailing "/" to endpoints.
