@@ -3,6 +3,13 @@
 
 # Praktisch
 
+- [Hoe gebruik je de website?](./gids.md)
+    - [Account aanmaken](./gids/account.md)
+    - [Leuke pagina's](./gids/paginas.md)
+    - [Klassementen](./gids/klassementen.md)
+    - [Bestuur](./gids/bestuur.md)
+        - [Nieuw lid accepteren](./gids/bestuur/nieuw_lid.md)
+        - [Update klassement](./gids/bestuur/klassement.md)
 - [Vragen en suggesties](./vragen.md)
 - [.ComCom](./comcom.md)
     - [Commissie](./comcom/commissie.md)

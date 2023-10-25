@@ -2,6 +2,8 @@
 
 Dit is de centrale locatie voor alle informatie over de website en de .ComCom.
 
+Wil je iets weten over het gebruik van de website? [Klik hier.](./gids.md)
+
 Wil je een suggestie doen voor de website of iets vragen aan de .ComCom (bijvoorbeeld dat we een stukje content aanpassen)? [Klik hier.](./vragen.md)
 
 Wil je iets weten over hoe de .ComCom werkt, of over wat je kunt leren bij de .ComCom? [Klik hier.](./comcom.md)
