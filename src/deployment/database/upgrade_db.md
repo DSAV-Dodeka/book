@@ -37,16 +37,19 @@ psql -p 3141 -U dodeka -d postgres -f ./upgrade_dump.sql
 
 Note that this will also restore the passwords as previously set, so login to check if everything is there with the previous password.
 
-Finally, we need to replace the old container's Docker volume by the new one. There are no great solutions for this, but what you can do is run this:
+Finally, we need to replace the old container's Docker volume by the new one. There are no great solutions for this. First, delete the old volume and recreate it with Docker Compose, like:
 
 ```shell
-# Deletes the old container's volume and recreates it
-docker volume rm d-dodeka-db-volume-localdev
-docker volume create --name d-dodeka-db-volume-localdev
-# Copies from your new db's volume to the old one
-docker run --rm -it -v d-dodeka_repl-db-volume-localdev:/from -v d-dodeka-db-volume-localdev:/to alpine ash -c "cd /from ; cp -av . /to"
+docker volume rm d-dodeka-db-volume-production
+```
+
+You want to recreate the volume with Compose, because it will give a warning if done manually. A way to do this simply run `deploy.sh` on the database, which will automatically create a volume if none existed.
+
+```shell
+# Copies from your new db's volume to the old one using a temporary container
+docker run --rm -it -v d-dodeka_repl-db-volume-production:/from -v d-dodeka-db-volume-production:/to alpine ash -c "cd /from ; cp -av . /to"
 # Since our old volume name now contains the new one's data, we can delete the new one and reuse the old one
-docker volume rm d-dodeka_repl-db-volume-localdev
+docker volume rm d-dodeka_repl-db-volume-production
 ```
 
 Now, ensure your old deployment uses the new image and restart it. Everything should work then.
@@ -77,4 +80,6 @@ docker cp ./upgrade_dump.sql d-dodeka_repl-db-1:/dodeka-db/upgrade_dump.sql && r
 docker exec -it -w /dodeka-db d-dodeka_repl-db-1 /bin/bash
 # Restore database
 psql -p 3141 -U dodeka -d postgres -f ./upgrade_dump.sql
+# Delete dump file
+rm ./upgrade_dump.sql
 ```
