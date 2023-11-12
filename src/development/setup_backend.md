@@ -41,3 +41,31 @@ First you need to have the Poetry environment running as described earlier and e
 * This will generate a Python file in the migrations/versions directory, which you can view to see if everything looks good. It basically looks at the database, looks at the schema described in db/model.py and generates code to migrate to the described schema.
 * Then, you can run `poetry run alembic upgrade head`, which will apply the latest generated revision. If you now use your database viewer, the table will have hopefully appeared.
 * If there is a mismatch with the current revision, use `poetry run alembic stamp head` before the above 2 commmands.
+
+
+### VS Code settings
+
+VS Code doesn't come included with all necessary/useful tools for developing a Python application. Therefore, be sure the following are installed:
+
+* Python (which installs Pylance)
+* Even Better TOML (for .toml file support)
+
+You probably want to update `.vscode/settings.json` as follows:
+
+```json
+{
+    "python.analysis.typeCheckingMode": "basic",
+    "files.associations": {
+        "*.toml.local": "toml"
+    },
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/.idea": true,
+        "**/.mypy_cache": true,
+        "**/.pytest_cache": true,
+        "**/.ruff_cache": true
+      }
+}
+```
+
+This ensures that any unnecessary and files are not shown in the Explorer.
