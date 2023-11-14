@@ -28,9 +28,7 @@ In addition to this, we rely heavily on the following libraries:
 * [cryptography](https://github.com/pyca/cryptography) for many cryptographic primitives, primarily for encrypting refresh tokens and handling the keys used for signing the JWTs.
 * [pydantic](https://github.com/pydantic/pydantic) for modeling and parsing all data throughout the application.
 
-The backend relies on some basic cryptography. It is nice to know something about secret key cryptography (AES), public key cryptography and hashing.
-
-**Deployment**: Everything is designed to run easily inside a **[Docker](https://www.docker.com/)** container. The total package (Server, DB, KV) is recommended to be deployed using separate Docker containers using **[Docker Compose](https://docs.docker.com/compose/)**. We manage deployment from the **[DSAV-Dodeka/dodeka](https://github.com/DSAV-Dodeka/dodeka)** repository.
+The backend relies on some basic cryptography (see the [cryptogrpahy section](./backend/crypto.md)). It is nice to know something about secret key cryptography (AES), public key cryptography and hashing.
 
 ### Configuration and import structure
 
