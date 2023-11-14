@@ -30,17 +30,22 @@ You will again need to enter your GitHub username and the Personal Access Token.
 
 You will now have a `dodeka` folder containing all the necessary folders.
 
-In `/dev` you can find `devdeploy.sh` and `down.sh`. By running `./devdeploy.sh` you start both the database and key-value store.
+Now, we will use Docker Compose so start everything we want for development:
 
-If you're deploying from WSL, run `devedeploy.sh port` instead. This is because if your container is running inside WSL, for it to be accessible from outside WSL, the host needs to be 0.0.0.0 instead of localhost.
+First, we pull:
 
-#### Troubleshooting
-
-The following error can occasionally occur:
-
-```
-cp: cannot create regular file './conf/redis.conf': Permission denied
-./kv/deploy.sh: line 28: ./conf/redis.conf: Permission denied
+```shell
+docker compose -f use/dev/docker-compose.yml --env-file use/dev/dev.env --profile data pull
 ```
 
-If this happens, simply delete the `conf` directory in `use/dev/kv` and retry.
+We start:
+
+```shell
+docker compose -f use/dev/docker-compose.yml --env-file use/dev/dev.env --profile data up -d
+```
+
+We shutdown:
+
+```shell
+docker compose -f use/dev/docker-compose.yml --env-file use/dev/dev.env --profile data down
+```
