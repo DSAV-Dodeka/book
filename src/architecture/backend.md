@@ -1,7 +1,3 @@
-# Backend
-
-
-
 # Backend Server and authpage
 
 
@@ -19,7 +15,7 @@ The async component of the **[redis-py](https://github.com/redis/redis-py)** lib
 
 This is an authorization server, authentication server and web app backend API in one. This model is not recommended for large-scale setups but works well for our purposes. It has been designed in a way that makes the components easy to separate.
 
-Client authentication uses the [OPAQUE protocol](https://datatracker.ietf.org/doc/draft-irtf-cfrg-opaque/) (password-authentication key exchange), which protects against agains pre-computation attacks upon server compromise. This makes passwords extra safe in a way that they never leave the client.
+Client authentication uses the [OPAQUE protocol](https://datatracker.ietf.org/doc/draft-irtf-cfrg-opaque/) (password-authentication key exchange), which protects against agains pre-computation attacks upon server compromise, as well as not relying on PKI (public key infrastructure) for protecting the password when it is sent over the network. This makes passwords extra safe in a way that they never leave the client.
 
 Authorization is performed using [OAuth 2.1](https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/), with much of [OpenID Connect Core 1.0](https://openid.net/specs/openid-connect-core-1_0.html) also implemented to make it appropriate for authenticating users. While not technically required, OAuth tokens are generally in the form of [JSON Web Tokens (JWTs)](https://www.rfc-editor.org/rfc/rfc7519.html) and OpenID Connect does require it, so we use them here. Good 3rd-party resources can be found for [OAuth](https://www.oauth.com/) and [JWTs](https://jwt.io/introduction).
 
@@ -28,32 +24,7 @@ In addition to this, we rely heavily on the following libraries:
 * [cryptography](https://github.com/pyca/cryptography) for many cryptographic primitives, primarily for encrypting refresh tokens and handling the keys used for signing the JWTs.
 * [pydantic](https://github.com/pydantic/pydantic) for modeling and parsing all data throughout the application.
 
-The backend relies on some basic cryptography (see the [cryptogrpahy section](./backend/crypto.md)). It is nice to know something about secret key cryptography (AES), public key cryptography and hashing.
-
-### Configuration and import structure
-
-The first loaded module is loaded is `define/define.py`. It should be fully independent of any other modules. It determines the so-called "compiled configuration", i.e. variables you want to access easily in code without having to resort to any kind of application state. This means the variables must always be available statically, before the application is started and should be compiled into any deployment. For example, when deployed as a Docker container, these should already be included inside the container. However, they could also vary between "local development" and "production". By default, it loads the `define.toml` in the resources folder. This file is populated with values meant for local development and environment-less testing (i.e. without the database). The file should include a list of environments the variables are applicable to.
-
-Variables that are more "runtime" are loaded in by `env.py`. These are only accessible by loading application state (after startup). Using the `APISERVER_CONFIG` environment variable the path of the config file can be set. By default, it is the incomplete `env.toml` in the resources file. For a development environment, this variable should be set, with `APISERVER_ENV="localdev"` included in the `.toml` file.
-
-To prevent circular imports, no module may depend on a module below itself in this list:
-
-#### TODO UPDATE
-
-### Important to keep in mind
-
-Always add a trailing "/" to endpoints.
-
-### Before you commit
-
-We use [`black`](https://github.com/psf/black) for code formatting and [`ruff`](https://github.com/charliermarsh/ruff) for linting.
-
-```
-poetry run black src tests
-poetry run ruff src tests
-```
-
-## Background info
+The backend relies on some basic cryptography (see the [cryptography section](./backend/crypto.md)). It is nice to know something about secret key cryptography (AES), public key cryptography and hashing.
 
 ### Why did we choose \<x\>?
 
