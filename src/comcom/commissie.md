@@ -7,6 +7,8 @@ De huidige commissie is:
 - Tip ten Brink
 - Leander Bindt
 
+## Geschiedenis
+
 Voormalige leden:
 
 - Donne Gerlich (QQ B2)

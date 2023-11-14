@@ -12,4 +12,10 @@ Bij de .ComCom is enorm veel te doen en dus natuurlijk ook heel veel te leren. D
 Programmeren, coderen, developen, er zijn veel woorden voor wat wij doen. Je kunt het zelfs software _engineering_ of _architecture_ noemen. De volgende dingen bouwen wij allemaal:
 
 - Een website, de "frontend", (JavaScript, HTML, CSS) met het React framework. Naast statische pagina's komen er ondertussen steeds meer dynamische pagina's bij, die up-to-date informatie ophalen van een server, die vervolgens moet worden gemanipuleerd. Daarnaast moet worden bijgehouden of je wel of niet bent ingelogd en welke onderdelen van de website je kunt zien. Het bestuur moet een tabel kunnen zien met informatie over alle leden, en dit aan kunnen passen. Als data verandert op de server, moet je dat ook meteen kunnen zien.
-- Een API, de "backend", die reageert op aanvragen (requests) van de website. Deze slaat alle wachtwoorden op in een vorm die wij niet kunnen lezen en kan bewijzen of je echt bent wie je zegt dat je bent. Dit vergt cryptografie. Daarnaast moet de backend informatie op kunnen halen uit een database. Hiervoor gebruiken we SQL. Hoe we inloggen en checken of iemand toegang heeft (authenticatie en autorisatie) volgt een bepaalde standaard, genaamd OAuth 2.
+- Een server die een toegankelijk is via een API, de "backend" (geschreven in Python met FastAPI), die reageert op aanvragen (requests) van de website. Deze slaat alle wachtwoorden op in een vorm die wij niet kunnen lezen en kan bewijzen of je echt bent wie je zegt dat je bent. Dit vergt cryptografie. Daarnaast moet de backend informatie op kunnen halen uit een database. Hiervoor gebruiken we SQL. Hoe we inloggen en checken of iemand toegang heeft (authenticatie en autorisatie) volgt een bepaalde standaard, genaamd OAuth 2.
+
+## Systeemadministratie
+
+- Scriptjes en andere tools om alles te kunnen runnen, zoals Dockerfiles en Docker Compose bestanden die beschrijven hoe we de databases (PostgreSQL en Redis) opstarten.
+- Beheren van de emailprovider (nu runnen we dat zelf op onze server).
+- Beheren van de server zelf (Ubuntu Linux), updates uitvoeren, de toegang veilighouden.
