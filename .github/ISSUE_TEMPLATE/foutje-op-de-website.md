@@ -7,6 +7,8 @@ assignees: ''
 
 ---
 
+Let op, dit is een publieke website, dus laat geen privéinformatie achter! Stuur in dat geval altijd een WhatsApp bericht (Jesper voor content, Matthijs voor iets op de frontend, Tip voor informatie in het ledengedeelte).
+
 **Beschrijf de fout**
 Een korte beschrijving wat er fout gaat.
 
