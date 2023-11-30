@@ -1,8 +1,51 @@
 # Changelog
 
-Hier houden we alle veranderingen bij. Dit gaat specifiek om code, niet om content.
+Hier houden we alle veranderingen bij. Dit gaat specifiek om code, niet om content. De frontend wordt vaker geüpdate dan hier weergegeven (en heeft ook geen specifieke versies), maar de belangrijke veranderingen zijn wel hier samengevat.
+
+## (UNRELEASED) 2.1.0 - 2023-11-30
+
+Matthijs en Tip hebben code aan deze release bijgedragen.
+
+### Stats
+
+We are now at 352 commits on the backend and 907 commits on the frontend. 
+
+### Added (frontend)
+- An explanation on the classification has been added to the classification page.
+- There is now an NSK Meerkamp role.
+
+### Fixed (frontend)
+- Last names are no longer all caps on the classification page and are shown in full.
+
+### Added (backend)
+- **Admin**: Synchronization of the total points per user and events, as well as a more consistent naming scheme for the endpoints. All old endpoints are retained for backwards compatibility. Furthermore, admins can now request additional information about events on a user, event or class basis (see [the PR](https://github.com/DSAV-Dodeka/backend/pull/66)).
+    - `<server>/admin/class/sync/` (Force synchronization of the total points per user, without having to add a new event)
+    - `<server>/admin/class/update/` (Same as previous `<server>/admin/ranking/update`, which still exists for backwards compatibility)
+    - `<server>/admin/class/get/{rank_type}/` (Same as previous `<server>/admin/classificaiton/{rank_type}/`, which still exists for backwards compatibility)
+    - `<server>/admin/class/events/user/{user_id}/` (Get all events for a specific user_id, with the class_id and rank_type as query parameters)
+    - `<server>/admin/class/events/all//` (Get all events, with the specific class_id and rank_type as query parameters)
+    - `<server>/admin/class/users/event/{event_id}/` (Get all users for a specific event_id)
+- **Member**: Only renames, as described above.
+    - `<server>/members/class/get/{rank_type}/` (Same as previous `<server>/members/classificaiton/{rank_type}/`, which still exists for backwards compatibility)
+    - `<server>/members/profile/` (Same as previous `<server>/res/profile`, which still exists for backwards compatibility)
+
+### Changed (backend)
+- **Types**: The entire backend now passes mypy's type checker (see [the PR](https://github.com/DSAV-Dodeka/backend/pull/68))!
+- **Better context/dependency injection**: The previous system was not perfect and it was still not easy to write tests. Lots of improvements have been made, utilizing FastAPI Depends and making it possible to easily wrap a single function call to make the caller testable. See [#64](https://github.com/DSAV-Dodeka/backend/pull/64), [#65](https://github.com/DSAV-Dodeka/backend/pull/64), [#70](https://github.com/DSAV-Dodeka/backend/pull/70) and [#71](https://github.com/DSAV-Dodeka/backend/pull/71).
+- **Better logging**: Logging had been lackluster while waiting for a better solution. This has now arrived with the adoption of loguru. Logging is now much more nicely formatted and it will be easily possible in the future to collect and show the logs in a central place, although that is not yet implemented. Some of the startup code has also been refactored as part of the logging effort. 
+- **Check for role on router basis**: For certain routers, we now check whether they are requested by admins or members for all routes inside the router, making it harder to forget to add a check. The header checking logic has also been refactored and some tests have been added. Much better than the manual `if` check we did before. This also includes some minor refactor and fixes for access token verification.
+- There are now different router tags, which makes it easier to find all the different API endpoints in the OpenAPI docs view.
+
+### Fixed (backend)
+- An error is no longer thrown on the backend when a password reset is requested for a user that does not exist.
+
+### Internal (backend)
+
+- **Live query tests**: in the GitHub Actions CI we now actually run some tests against a live database using Actions service containers. This means we can be much more sure that we did not completely break database functionality after passing the tests. [PR](https://github.com/DSAV-Dodeka/backend/pull/69)
 
 ## 2.0.1 - 2023-10-25
+
+Tip heeft code aan deze release bijgedragen.
 
 Released into production on 2023-10-25.
 
@@ -14,6 +57,8 @@ Released into production on 2023-10-25.
 ## 2.0.0 - 2023-10-17
 
 Note: this version was not released into production.
+
+Leander, Matthijs en Tip hebben code aan deze release bijgedragen.
 
 ### Added (backend)
 - **Admin**: Roles, using OAuth scope mechanism, as well as classifications stored in the database, computed based on each event.
@@ -121,3 +166,8 @@ Initial release of the FastAPI backend server, PostgreSQL database and Redis key
 ### Added (redis)
 
 - Docker container with Redis server
+
+
+## Pre-1.0.0
+
+The frontend went live in June 2021 and before the release of the backend, was regularly updated using a rolling release schedule. The frontend is not versioned.
