@@ -7,7 +7,7 @@ Setting up the frontend is the easiest. The frontend is entirely developed and d
 The first step is thus to clone the repository to your computer. Because we store all our images inside the repository, the full history contains countless copies of large images. In the past, we didn't properly optimize them so sometimes there were multiple versions of very large images. Thankfully, you don't have to download the full history. Instead, when cloning, run the following command:
 
 ```shell
-gh repo clone DSAV-Dodeka/DSAV-Dodeka.github.io dodekafrontend -- --filter=blob:none
+git clone https://github.com/DSAV-Dodeka/DSAV-Dodeka.github.io.git dodekafrontend --filter=blob:none
 ```
 
 The `--filter=blob:none` option executes a "partial clone", in which all blobs (so the actual file contents) of old commits are not downloaded. They are only downloaded once you actually switch to a commit 
