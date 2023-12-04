@@ -11,4 +11,4 @@ Before you can run `apiserver` locally, you must have a Postgres and Redis datab
 
 ### Running for the first time
 
-If you are running the server for the first time and/or the database is empty, be sure to set RECREATE="yes" in the env config file (i.e. `devenv.toml.local`). Be sure to set it back to "no" after doing this once, or otherwise it recreate it each time.
+If you are running the server for the first time and/or the database is empty, be sure to set RECREATE="yes" in the env config file (i.e. `devenv.toml.local`). Be sure to set it back to "no" after doing this once, or otherwise it recreates it each time.

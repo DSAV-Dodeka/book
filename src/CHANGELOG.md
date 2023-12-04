@@ -2,13 +2,13 @@
 
 Hier houden we alle veranderingen bij. Dit gaat specifiek om code, niet om content. De frontend wordt vaker geüpdate dan hier weergegeven (en heeft ook geen specifieke versies), maar de belangrijke veranderingen zijn wel hier samengevat.
 
-## (UNRELEASED) 2.1.0 - 2023-11-30
+## (UNRELEASED) 2.1.0 - 2023-12-04
 
 Matthijs en Tip hebben code aan deze release bijgedragen.
 
 ### Stats
 
-We are now at 352 commits on the backend and 907 commits on the frontend. 
+We are now at 359 commits on the backend and 922 commits on the frontend. 
 
 ### Added (frontend)
 - An explanation on the classification has been added to the classification page.
@@ -16,6 +16,17 @@ We are now at 352 commits on the backend and 907 commits on the frontend.
 
 ### Fixed (frontend)
 - Last names are no longer all caps on the classification page and are shown in full.
+
+### Added (authpage)
+* Add Dodeka logo to all pages, using new `Title` component.
+
+### Changed (authpage)
+* Use flex layout to make alignment better when pressing "forgot password", so no the layout doesn't jump slightly
+* Update node version to v20
+* Update dependencies
+
+### Fixed (authpage)
+* Educational institution is now recorded if not changed from default (TU Delft)
 
 ### Added (backend)
 - **Admin**: Synchronization of the total points per user and events, as well as a more consistent naming scheme for the endpoints. All old endpoints are retained for backwards compatibility. Furthermore, admins can now request additional information about events on a user, event or class basis (see [the PR](https://github.com/DSAV-Dodeka/backend/pull/66)).
@@ -42,6 +53,8 @@ We are now at 352 commits on the backend and 907 commits on the frontend.
 ### Internal (backend)
 
 - **Live query tests**: in the GitHub Actions CI we now actually run some tests against a live database using Actions service containers. This means we can be much more sure that we did not completely break database functionality after passing the tests. [PR](https://github.com/DSAV-Dodeka/backend/pull/69)
+- Add request_id to logger using loguru's contextualize
+- Added logging to all major user flows (signup, onboard, change email/password), also allowing the display of reset URL's etc. so email doesn't have to be turned on during local development
 
 ## 2.0.1 - 2023-10-25
 

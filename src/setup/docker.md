@@ -12,7 +12,7 @@ Then, you need a number of tools installed, which you can install from the links
 
 If you're on Windows, installing [Docker Desktop](https://www.docker.com/products/docker-desktop) after you've installed WSL will make these available inside WSL if Docker Desktop is running.
 
-### Dev
+## Dev
 
 To be able to run everything, you need to have configured access to the containers. To do that, run:
 
@@ -49,3 +49,36 @@ We shutdown:
 ```shell
 docker compose -f use/dev/docker-compose.yml --env-file use/dev/dev.env --profile data down
 ```
+
+(To understand this command, we are basically indicating three options. `-f` is which compose file we are running, `--env-file` is which environment variables we are setting and `--profile` which services. We choose `data` because we only want to run the databases.)
+
+Note that they will only be accessible on localhost from the environment they run in. So if you are using WSL, they are only available from localhost. So if the backend project is stored in Windows, you need to change the `--env-file` option to `use/dev/dev_port.env`. This will open the databases on the 0.0.0.0 host, which will make them accessible even from outside WSL.
+
+## Shortcuts
+
+Those commands are quite long and hard to remember. To make things easier, the `dodeka` project has a `justfile`, which provides some command shorcuts. First, install [`just`](https://just.system) on the platform you are running your commands from (I recommend WSL if on Windows). This is a "command runner". I recommend to install it using `cargo` (which you can also install... via https://rustup.rs/), so simply run `cargo install just`. 
+
+Then, we have the following commands that you can now run when inside the `dodeka` repository: 
+
+to start
+```
+just updevp
+```
+
+to stop
+```
+just downdevp
+```
+
+
+Remove the `p`, so:
+
+```
+just updev
+
+just downdev
+```
+
+if you are not on WSL.
+
+
