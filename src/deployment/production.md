@@ -2,14 +2,31 @@
 
 # Staging and production
 
-For a complete setup including backend, first ensure the containers are built using GitHub Actions for the environment you want to deploy. Then, SSH into the cloud server you want to deploy it to. First, ensure Python, Docker (including Compose), gpg, GitHub CLI and bash are installed on the target server. Next, log into GitHub CLI with an account with access to this repository and the `dodekasecrets` repository.
+For a complete setup including backend, first ensure the containers are built using GitHub Actions for the environment you want to deploy. Then, SSH into the cloud server you want to deploy it to. 
 
-To deploy, simply clone this repository and enter the main directory. Make sure you have updated the repository recently with the newest deploy script versions. Then, run `./deploy.sh production` for production. If you replace "production" with "staging", by default it will reset the database, so be careful! To deploy the staging version without reset, run `./deploy.sh staging update`.
+The following tools are necessary, in addition to those assumed to be installed on a standard Linux server:
 
-It will ask you for the passphrase of `dodekasecrets`. Paste it in and press enter, the rest will then happen automatically!
+* Python 3.10 (matching the version requirements of the `dodeka` repository)
+* Poetry (to install the dependencies in the `dodeka` repository)
+* `gh` (GitHub CLI, logged into account with access to `dodeka` repository, optional if authenticated by other means)
+* `just` (a [command runner](https://github.com/casey/just), optional)
+* `tidploy` ([tool](https://github.com/tiptenbrink/tidploy) built specifically for deploying this project)
+* `bws` ([Bitwarden Secrets Manager CLI](https://github.com/bitwarden/sdk))
+
+The last three tools are all Rust projects, so they can be built from source using `cargo install <tool name>`. However, this can be very slow on large VMs, so installing them as binaries, for example with [installer](https://github.com/jpillora/installer), might be a better idea.
+
+To deploy, simply clone this repository and enter the main directory. Make sure you have updated the repository recently with the newest deploy script versions. Then, run `tidploy auth deploy` and enter the Bitwarden Secrets Manager access token. 
+
+Then, you can deploy using `tidploy deploy production` (or `tidploy deploy staging` for staging).
 
 That's it!
 
 ### Shutdown
 
-After running deploy, it will create a new directory in `deployments/active<environment>` and move the scripts of the right environment's `use` folder. This will contain all scripts for the deployment, so you can also run `./down.sh` from there. In case there is a crash in one of the containers, do this so the startup will be clean.
+You can observe the active compose project using `docker compose ls`. Then you can shut it down by running (from the `dodeka` repository):
+
+```
+just deploydown production latest
+```
+
+If the suffix of the Docker Compose project name is different from latest, replace it with that. It will in general be equal to the tag you deployed with (which is 'latest' by default), but with periods replaced with underscores. For example, `tidploy deploy staging v2.1.0-rc.3` can be shutdown with `just deploydown staging v2_1_0-rc_3`.
