@@ -1,6 +1,6 @@
 # Docker/container setup
 
-We use the `dodeka` repository for the setup of the database and key-value store (a special database that is not relational, it's basically a big dictionary/map). For this, we use a technology called containers. Specifically, we use Docker.
+We use the `deploy` folder in the `dodeka` repository for the setup of the database and key-value store (a special database that is not relational, it's basically a big dictionary/map). For this, we use a technology called containers. Specifically, we use Docker.
 
 In order to run the scripts, there are a few requirements. If you're on macOS or Linux, you only need to install Docker as both are Unix-like systems. For macOS I recommend only installing Docker Engine
 
@@ -56,29 +56,47 @@ Note that they will only be accessible on localhost from the environment they ru
 
 ## Shortcuts
 
-Those commands are quite long and hard to remember. To make things easier, the `dodeka` project has a `justfile`, which provides some command shorcuts. First, install [`just`](https://just.system) on the platform you are running your commands from (I recommend WSL if on Windows). This is a "command runner". I recommend to install it using `cargo` (which you can also install... via https://rustup.rs/), so simply run `cargo install just`. 
+Those commands are quite long and hard to remember. To make things easier, we use Nu shell scripts to provide shorter commands that are easier to remember. First, follow the instructions on [installing nu below](#installing-nushell).
 
-Then, we have the following commands that you can now run when inside the `dodeka` repository: 
+On Windows, you need to prepend `nu` to every command. For convenience, the commands below all contain `nu`. However, on Linux/macOS this is not necessary, you can just run the script directly once you've installed Nushell (because they recognize shebangs).
 
-to start
-```
-just updevp
-```
+The scripts are all in the root directory, but you can call them using `../` if you are in a subdirectory and they'll still work. Make sure [you've installed Nu](#installing-nushell).
 
-to stop
-```
-just downdevp
-```
+### Running the development databases
 
+**Start** (this will also pull the images, so make sure you're logged in with `docker login ghcr.io`):
 
-Remove the `p`, so:
+Note: this opens the ports on host 0.0.0.0, so only do this when your Docker doesn't run on your main OS, so use this if it e.g. runs inside WSL
 
 ```
-just updev
-
-just downdev
+nu dev.nu upp
 ```
 
-if you are not on WSL.
+**Stop**:
 
+```
+nu dev.nu down
+```
+
+If running Docker on your main OS:
+
+```
+nu dev.nu up
+```
+
+### Testing and checking the backend
+
+```
+nu test.nu backend
+```
+
+Other commands can be found in the various `.nu` files in the root directory.
+
+### Installing Nushell
+
+Install [`nu`](https://www.nushell.sh/book/installation.html) (you don't have to set it as your default shell, just make sure you have `nu` on your path).
+
+If you have Rust installed, you can install it using `cargo install nu`. This is especially recommended if you're on Linux (to install it from a binary, first run `cargo install binstall` and then `cargo binstall nu`). On Windows, the easiest is probably `winget install nushell` (using [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)). On macOS, install it using Homebrew (`brew install nushell`).
+
+Why Nushell? In short, because it is a modern shell scripting language that lets you very easily call external programs. Its syntax is also readable by people who haven't used it before, but still quite powerful. It also can replace all kinds of different tools we might need otherwise.
 

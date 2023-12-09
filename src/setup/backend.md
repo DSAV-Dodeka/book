@@ -1,6 +1,10 @@
 # Backend setup
 
-Before you can run `apiserver` locally, you must have a Postgres and Redis database setup. Take a look at the [database setup](./setup_docker.md) page for that.
+**NOTE**: the backend is now developed from the `dodeka` repository, in the `backend` subdirectory!
+
+Before you can run the backend locally, you must have a Postgres and Redis database setup. Take a look at the [database setup](./setup_docker.md) page for that.
+
+**Run all commands from the `dodeka/backend` folder!**
 
 * [Install Poetry](https://python-poetry.org/docs/master/). Poetry is like npm, but then for Python. It also provides better project isolation, leveraging virtual environments better than most other projects. 
 * Then, set up a Python 3.11 Poetry virtual environment. This step can be complicated, as Python 3.11 might not be the default version of Python on your system. First, install 3.11. There are multiple ways to do that. For advanced users (if you frequently use multiple versions of Python), you could use something like `pyenv`. Then, to make Poetry use the correct version, find the path of the Python executable (so the python.exe or similar) of your Python 3.11 installation. Then, do `poetry env use <python3.11 path here>`.
