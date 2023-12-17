@@ -1,10 +1,10 @@
 # Docker/container setup
 
-We use the `deploy` folder in the `dodeka` repository for the setup of the database and key-value store (a special database that is not relational, it's basically a big dictionary/map). For this, we use a technology called containers. Specifically, we use Docker.
+We use the `deploy` folder in the `dodeka` repository for the setup of the relational SQL database and key-value store (a special database that is not relational, it's basically a big dictionary/map). For this, we use a technology called containers. Specifically, we use Docker.
 
-In order to run the scripts, there are a few requirements. If you're on macOS or Linux, you only need to install Docker as both are Unix-like systems. For macOS I recommend only installing Docker Engine
+In order to run the scripts, there are a few requirements. If you're on macOS or Linux, you only need to install Docker Engine as both are Unix-like systems. But you can also install Docker Desktop.
 
-First of all, you need to have a Unix-like command line with a bash-compatible shell: i.e. Linux or macOS. See the Notion for instructions on Windows Subsystem for Linux (**WSL**), which allows you to install Linux inside Windows.
+First of all, you need to have a Unix-like command line with a bash-compatible shell: i.e. Linux or macOS. See the [next section](#wsl) for instructions on Windows Subsystem for Linux (**WSL**), which allows you to install Linux inside Windows.
 
 Then, you need a number of tools installed, which you can install from the links below if you're not on Windows:
 
@@ -12,7 +12,19 @@ Then, you need a number of tools installed, which you can install from the links
 
 If you're on Windows, installing [Docker Desktop](https://www.docker.com/products/docker-desktop) after you've installed WSL will make these available inside WSL if Docker Desktop is running.
 
-## Dev
+## WSL
+
+If you're on Windows, the OS has simply too much differences to be able to run Linux containers directly. It therefore needs an additional virtualization layer. Thankfully, there now exists a technology called WSL (or Windows Subsystem for Linux). 
+
+You can find installation instructions [here](https://learn.microsoft.com/en-us/windows/wsl/install). I recommend installing either Ubuntu or Debian (Ubuntu is based on Debian, and all our containers run on Debian), which are two 'flavors/distributions' of Linux.
+
+For a better experience with the command line, I recommend getting the Terminal application (not the built-in Command Prompt), which you can install [from the Microsoft Store](https://apps.microsoft.com/detail/9N0DX20HK701?hl=en-US&gl=US). 
+
+Note that you don't actually have to install your repository inside Linux. However, nowadays VS Code has very good support for developing from WSL, so I do actually recommend cloning the repository inside WSL and not inside Windows.
+
+That does mean you might have to install extra dependencies (like Python) into Windows.
+
+## Local development
 
 To be able to run everything, you need to have configured access to the containers. To do that, run:
 
@@ -31,6 +43,8 @@ You will again need to enter your GitHub username and the Personal Access Token.
 You will now have a `dodeka` folder containing all the necessary folders.
 
 Now, we will use Docker Compose so start everything we want for development:
+
+NOTE: Instead of the below commands, take a look at the [shortcuts section](#shortcuts) if you're okay with installing an extra program (Nushell). Also if you're on WSL, please look at the last paragraph of the current section (use `dev_port.env` instead of `dev.env`).
 
 First, we pull:
 
@@ -68,6 +82,8 @@ The scripts are all in the root directory, but you can call them using `../` if 
 
 Note: this opens the ports on host 0.0.0.0, so only do this when your Docker doesn't run on your main OS, so use this if it e.g. runs inside WSL
 
+↓ the extra 'p' is on purpose
+
 ```
 nu dev.nu upp
 ```
@@ -86,6 +102,8 @@ nu dev.nu up
 
 ### Testing and checking the backend
 
+(You can only run this after having followed the steps in the [backend setup](./backend.md)).
+
 ```
 nu test.nu backend
 ```
@@ -96,7 +114,7 @@ Other commands can be found in the various `.nu` files in the root directory.
 
 Install [`nu`](https://www.nushell.sh/book/installation.html) (you don't have to set it as your default shell, just make sure you have `nu` on your path).
 
-If you have Rust installed, you can install it using `cargo install nu`. This is especially recommended if you're on Linux (to install it from a binary, first run `cargo install binstall` and then `cargo binstall nu`). On Windows, the easiest is probably `winget install nushell` (using [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)). On macOS, install it using Homebrew (`brew install nushell`).
+If you have Rust installed, you can install it using `cargo install nu`. This is especially recommended if you're on Linux (to install it from a binary (which is much faster!), first run `cargo install binstall` and then `cargo binstall nu`). On Windows, the easiest is probably `winget install nushell` (using [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)). On macOS, install it using Homebrew (`brew install nushell`).
 
 Why Nushell? In short, because it is a modern shell scripting language that lets you very easily call external programs. Its syntax is also readable by people who haven't used it before, but still quite powerful. It also can replace all kinds of different tools we might need otherwise.
 

@@ -10,11 +10,11 @@ The first step is thus to clone the repository to your computer. Because we stor
 git clone https://github.com/DSAV-Dodeka/DSAV-Dodeka.github.io.git dodekafrontend --filter=blob:none
 ```
 
-The `--filter=blob:none` option executes a "partial clone", in which all blobs (so the actual file contents) of old commits are not downloaded. They are only downloaded once you actually switch to a commit 
+The `--filter=blob:none` option executes a "partial clone", in which all blobs (so the actual file contents) of old commits are not downloaded. They are only downloaded once you actually switch to a commit.
 
 The next step is to install `npm`, which is the standard package manager for JavaScript. We use it to download all our dependencies. `npm` is included when you install NodeJS, which is a JavaScript runtime (a program that runs JavaScript code) based on the same internal engine as Google Chrome.
 
-Currently, the minimum version for NodeJS is v18, so be sure to install a version greater than that. v20 is also fine. Download and install it from [this website](https://nodejs.org/en/). If you want to use multiple versions of Node (maybe you use it for different projects), you can use something like nvm (Node version manager).
+Download and install it from [this website](https://nodejs.org/en/). I recommend picking an LTS version (so v20 right now). v18 is also fine if you still have that. If you want to use multiple versions of Node (maybe you use it for different projects), you can use something like nvm (Node version manager).
 
 Next, open the command line in the root folder of the project. Then, to install all dependencies, run:
 
