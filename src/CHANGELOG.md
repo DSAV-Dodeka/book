@@ -4,6 +4,28 @@ Hier houden we alle veranderingen bij. Dit gaat specifiek om code, niet om conte
 
 <!-- toc -->
 
+## 2.2.0 - 2024-01-10
+
+This is the first full `tidploy` release on the backend with the mailserver moved to a dedicated provider. This should make all required features for the classifications fully work.
+
+Senne en Tip hebben code aan deze release bijgedragen. We are now at 591 commits for the backend (including the 150+ commits that were from the deployment repository).
+
+### Added (backend)
+
+* `<server>/admin/class/get_meta/{recent_number}/` (this returns the most recent classifications of each type, recent_number/2 for each type)
+* `<server>/admin/class/new/` (creates a new points and training classification)
+* `<server>/admin/class/modify/` (modifies a classification)
+* `<server>/admin/class/remove/{class_id}` (removes classification with id class_id)
+* `<server>/member/get_with_info/{rank_type}/` (Will replace `<server>/members/class/get/{rank_type}/`, but added with different name to avoid breaking change, this also returns last_updated and whether the classification is frozen)
+* The last_updated column is now updated when new events are added. 
+* (Senne) `<server>/admin/update/training` has been added (not yet in use by frontend) as the start of the training registration update.
+* New `update_by_unique` store method for updating an entire row based on a simple where condition.
+
+### Internal (backend)
+
+* The backend and deployment repository have been merged together, making deployment and versioning a lot easier. We now use a bunch of Nu scripts instead of shell scripts and the deployment will now use [`tidploy`](https://github.com/tiptenbrink/tidploy). This done in a series of commits from [4602abd](https://github.com/DSAV-Dodeka/dodeka/commit/4602abd986e67c39c2077215ac7310115cac9aaf) to around [414bc23](https://github.com/DSAV-Dodeka/dodeka/commit/414bc23ccc478f17be90169ed4dd16852a3df6dd).
+* Logging has been much improved throughout the backend, so errors can now be properly seen. Error handling has also been improved (especially for the store module). Some common startup errors now have better messages that indicate what's wrong. Documentation has been improved and all database queries now properly catch some specific errors. See [#31](https://github.com/DSAV-Dodeka/dodeka/pull/31).
+
 ## 2.1.1 - 2023-12-05
 
 Tip heeft code aan deze release code bijgedragen.
