@@ -4,7 +4,20 @@ Hier houden we alle veranderingen bij. Dit gaat specifiek om code, niet om conte
 
 <!-- toc -->
 
+## 2.2.1 - 2024-01-10
+
+Tip heeft code aan deze release code bijgedragen.
+
+Released into production on 2024-01-11.
+
+### Deploy
+
+- Fix production image version
+
+
 ## 2.2.0 - 2024-01-10
+
+Note: this version was not released into production.
 
 This is the first full `tidploy` release on the backend with the mailserver moved to a dedicated provider. This should make all required features for the classifications fully work.
 
@@ -29,6 +42,8 @@ Senne en Tip hebben code aan deze release bijgedragen. We are now at 591 commits
 ## 2.1.1 - 2023-12-05
 
 Tip heeft code aan deze release code bijgedragen.
+
+Released into production on 2023-12-05.
 
 ### Fixed (backend)
 * Remove debug eduinstitution value during registration
