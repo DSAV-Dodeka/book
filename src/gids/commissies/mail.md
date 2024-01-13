@@ -2,6 +2,10 @@
 
 We zijn recent overgestapt op een nieuwe provider, https://junda.nl. 
 
+## Verander je wachtwoord
+
+Via [webmail.dsavdodeka.nl](https://webmail.dsavdodeka.nl) kun je het e-mailwachtwoord aanpassen. We raden het sterk aan om het wachtwoord gegeven door de .ComCom aan te passen! Dit doe je bij "Edit Your Settings -> Password & Security". Als je het hebt aangepast, moet je de onderstaande instructies opnieuw uitvoeren (dus zowel bij 'Mail sturen als' en 'E-mail bekijken' moet je het opnieuw instellen).
+
 ## Stappenplan
 
 ### Gebruikt je commissie al een @dsavdodeka.nl adres?
@@ -51,7 +55,3 @@ Nu zorgen we dat je ook alles binnenkrijgt op je Gmail.
 - -> Account toevoegen
 
 Test of het werkt door een e-mail naar ander adres te versturen en naar je @dsavdodeka.nl account te versturen. Als het niet werkt, neem contact op met de .ComCom.
-
-## Verander je wachtwoord
-
-Via [webmail.dsavdodeka.nl](https://webmail.dsavdodeka.nl) kun je het e-mailwachtwoord aanpassen. We raden het sterk aan om het wachtwoord gegeven door de .ComCom aan te passen! Dit doe je bij "Edit Your Settings -> Password & Security".
