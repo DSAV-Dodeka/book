@@ -47,6 +47,7 @@ Nu zorgen we dat je ook alles binnenkrijgt op je Gmail.
 - Wachtwoord: vul het wachtwoord in dat je van de .ComCom hebt gekregen (dit kan anders zijn dan je Gmail wachtwoord)
 - Vul voor POP-server in: `mail.dsavdodeka.nl` met poort 995.
 - Vink "Een kopie van opgehaalde berichten op de server achterlaten."
+- Vink "Altijd een beveiligde verbinding (SSL) gebruiken wanneer e-mailberichten worden opgehaald (**dit is belangrijk!**)"
 - -> Account toevoegen
 
 Test of het werkt door een e-mail naar ander adres te versturen en naar je @dsavdodeka.nl account te versturen. Als het niet werkt, neem contact op met de .ComCom.
