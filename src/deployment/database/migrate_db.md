@@ -2,6 +2,12 @@
 
 First, log in to the production server and enter the `dodeka` repository.
 
+The schema is then in the `backend/src/schema` directory.
+
+To load env var, use:
+
+`read -s -p $'Enter POSTGRES_PASSWORD:\n' POSTGRES_PASSWORD`
+
 Then, be sure you have a GitHub token ready from an account with access to the `backend` repository, with at least
 `read:org` and `repo` scope (preferably the DodekaComCom account).
 

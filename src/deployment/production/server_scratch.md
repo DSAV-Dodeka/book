@@ -279,6 +279,42 @@ If necessary, restart nginx:
 sudo systemctl restart nginx
 ```
 
+### Optional: install Python and Poetry
+
+You can create database backups and migrate the database using Python. First, we need to install a Python version that has the same major version as the backend server requires.
+
+To make it more easy to install new versions in the future, let's use [`pyenv`](https://github.com/pyenv/pyenv?tab=readme-ov-file#unixmacos). I recommend not installing using homebrew, as that might interfere with some other core packages. Instead, use their install script and follow the instructions to put it into the path. These were, when last checked:
+
+```bash
+curl https://pyenv.run | bash
+```
+
+To add it to path and load it automatically: add to `.bashrc` (in the server home folder):
+
+```
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+```
+
+Then, install the correct Python version using:
+
+`pyenv install <exact version>`
+
+Note that it will install Python from source, so this could take a while. If there is an error, take a look at all required [packages that must be installed](https://github.com/pyenv/pyenv/wiki#suggested-build-environment).
+
+Then, go into the project directory and run `pyenv local <exact version>`. Now, the Python version should be the correct one if you run `python`. 
+
+Next, we will install Poetry to manage our dependencies. I recommend using `pipx` (which you can just install using `sudo apt install pipx`), so `pipx install poetry`. 
+
+Then, we want to make our Poetry environment use the correct version. Most likely, the Python version was installed into: `~/.pyenv/versions/<version>/bin/python`, so then you can use (once you are in the `backend/src` directory):
+
+```bash
+poetry env use ~/.pyenv/versions/<version>/bin/python
+```
+
+Now, we can run commands in our envrionment using `poetry run <command>`.
+
 ### Fin
 
 That was it, with less than 300 lines of instructions can completely set up a Linux server from scratch, in a simple and secure way.

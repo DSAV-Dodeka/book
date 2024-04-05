@@ -4,6 +4,23 @@ Hier houden we alle veranderingen bij. Dit gaat specifiek om code, niet om conte
 
 <!-- toc -->
 
+## Frontend (0232c32) - 2024-04-05
+
+### Changed (frontend)
+
+* (February/March) Jesper has updated a lot of content, including most of the commission photos
+* (March) Theme has been updated from winter to spring
+* (March) Records have been updated
+
+### Added (frontend)
+
+* A new "Pas aan" feature has been added for admins to manage the klassementen. This makes use of the 2.2 backend update. 
+    * It allows you to start new classifications
+    * You can select classifications and modify their start, end and freeze date
+    * You can make the database recompute the points based on whether or not you want to show the points added after freezing
+* Members can see when an event was last added and when it was frozen
+* (February) An Oud Leden Dodeka (OLD) page has been added
+
 ## 2.2.1 - 2024-01-10
 
 Tip heeft code aan deze release code bijgedragen.
