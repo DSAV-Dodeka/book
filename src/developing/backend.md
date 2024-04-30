@@ -2,7 +2,7 @@
 
 ## Project structure
 
-All the application code is inside the `src` directory. This contains five separate packages, of which three act as libraries and two as applications.
+All the application code is inside the `backend/src` directory. This contains five separate packages, of which three act as libraries and two as applications.
 
 - The `datacontext` library is fully standalone. It contains special logic for implementing dependency injection, which is useful for replacing database-reliant functions in tests, while keeping good developer ergonomics. Ensure it doesn't import code from any other package!
 - The `store` library is fully standalone and provides the primitives for communicating with the databases (both DB and KV). Ensure it doesn't import code from any other package!
@@ -44,20 +44,6 @@ poe check
 ### Continuous Integration (CI)
 
 Tests (including some additional tests that run against a live database) and all the above tools are all run in GitHub actions. If you open a Pull Request, these checks are run for every commit you push. If any fail, the "check" will fail, indicating that we should not merge. 
-
-
-### Database migrations
-
-We can use Alembic for migrations, which allow you to programatically apply large schema changes to your database.
-
-First you need to have the Poetry environment running as described earlier and ensure the database is on as well. 
-
-* Navigate to the ./src/schema directory.
-* From there run `poetry run alembic revision --autogenerate -m "Some message"`
-* This will generate a Python file in the migrations/versions directory, which you can view to see if everything looks good. It basically looks at the database, looks at the schema described in db/model.py and generates code to migrate to the described schema.
-* Then, you can run `poetry run alembic upgrade head`, which will apply the latest generated revision. If you now use your database viewer, the table will have hopefully appeared.
-* If there is a mismatch with the current revision, use `poetry run alembic stamp head` before the above 2 commmands.
-
 
 ### VS Code settings
 

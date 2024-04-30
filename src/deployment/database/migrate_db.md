@@ -25,4 +25,4 @@ Now, run alembic:
 poetry run alembic revision --autogenerate -m "<Some migration message>"
 ```
 
-For troubleshooting, refer to the [backend setup docs](/development/setup_backend.md).
+For troubleshooting, refer to the [backend setup docs](/developing/backend/schema.md).
