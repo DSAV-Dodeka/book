@@ -20,10 +20,6 @@ You can find installation instructions [here](https://learn.microsoft.com/en-us/
 
 For a better experience with the command line, I recommend getting the Terminal application (not the built-in Command Prompt), which you can install [from the Microsoft Store](https://apps.microsoft.com/detail/9N0DX20HK701?hl=en-US&gl=US). 
 
-Note that you don't actually have to install your repository inside Linux. However, nowadays VS Code has very good support for developing from WSL, so I do actually recommend cloning the repository inside WSL and not inside Windows.
-
-That does mean you might have to install extra dependencies (like Python) into Windows.
-
 ## Local development
 
 To be able to run everything, you need to have configured access to the containers. To do that, run:
@@ -32,7 +28,7 @@ To be able to run everything, you need to have configured access to the containe
 docker login ghcr.io
 ```
 
-Enter your GitHub username. For the password, don't use your GitHub password, but a Personal Access Token (Settings -> Developer settings) with at least read:packages and write:packages permissions. Be sure to save the token somewhere safe, you'll probably have to reuse it and you can't view it in GitHub after creation!
+Enter your GitHub username. For the password, don't use your GitHub password, but a Personal Access Token (Settings -> Developer settings) with at least repo, workflow, read:packages, write:packages, read:org and write:org permissions. Be sure to save the token somewhere safe, you'll probably have to reuse it and you can't view it in GitHub after creation!
 
 Now, you will need to be able to access the scripts in this repository. If you're using Windows, **do not** copy the files from Windows to Linux, this leads to some weird formatting problems in the scripts that cause them to fail. Instead, clone this repository directly from WSL, by running:
 
@@ -42,7 +38,7 @@ You will again need to enter your GitHub username and the Personal Access Token.
 
 You will now have a `dodeka` folder containing all the necessary folders.
 
-Now, we will use Docker Compose so start everything we want for development:
+Now, we will use Docker Compose to start everything we want for development:
 
 NOTE: Instead of the below commands, take a look at the [shortcuts section](#shortcuts) if you're okay with installing an extra program (Nushell). Also if you're on WSL, please look at the last paragraph of the current section (use `dev_port.env` instead of `dev.env`).
 
@@ -114,7 +110,7 @@ Other commands can be found in the various `.nu` files in the root directory.
 
 Install [`nu`](https://www.nushell.sh/book/installation.html) (you don't have to set it as your default shell, just make sure you have `nu` on your path).
 
-If you have Rust installed, you can install it using `cargo install nu`. This is especially recommended if you're on Linux (to install it from a binary (which is much faster!), first run `cargo install binstall` and then `cargo binstall nu`). On Windows, the easiest is probably `winget install nushell` (using [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/)). On macOS, install it using Homebrew (`brew install nushell`).
+If you have Rust installed, you can install it using `cargo install nu`. This is especially recommended if you're on Linux (to install it from a binary (which is much faster!), first run `cargo install binstall` and then `cargo binstall nu`). On macOS, install it using Homebrew (`brew install nushell`).
 
 Why Nushell? In short, because it is a modern shell scripting language that lets you very easily call external programs. Its syntax is also readable by people who haven't used it before, but still quite powerful. It also can replace all kinds of different tools we might need otherwise.
 
