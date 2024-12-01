@@ -23,6 +23,7 @@
 
 - [Overview](./overview.md)
 - [Setup](./setup.md)
+    - [Git](./setup/git.md)
     - [Frontend](./setup/frontend.md)
     - [Database](./setup/docker.md)
         - [Test database](./setup/database/test_db.md)
