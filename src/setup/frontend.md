@@ -13,7 +13,9 @@ Setting up the frontend is the easiest. The frontend is entirely developed and d
 
 ### Windows-specific
 
-5. 
+5. Make sure WinGet is installed (run `winget` in the terminal and see if it shows an error). See instructions below if it is not installed.
+6. Run the commands from the [the NodeJS website](https://nodejs.org/en/download/package-manager) to install npm/node
+7. TODO finish
 
 ### Other
 
