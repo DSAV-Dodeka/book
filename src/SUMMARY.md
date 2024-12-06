@@ -41,6 +41,7 @@
         - [Keys](./architecture/backend/keys.md)
 - [Developing](./developing.md)
     - [Prerequisites](./developing/prerequisites.md)
+    - [Cheatsheet](./developing/cheatsheet.md)
     - [Frontend](./developing/frontend.md)
         - [React](./developing/frontend/react.md)
         - [Content](./developing/frontend/content.md)
