@@ -2,25 +2,26 @@
 
 De huidige commissie is:
 
-- Matthijs Arnoldus
-- Tip ten Brink
-- Liam Timmerman
-- Jesper van der Marel
-- Tijmen Hoedjes (QQ B6)
+- Tijmen Hoedjes (o.a. QQ B6)
+- Xylander Parqui (QQ B7)
 
 ## Geschiedenis
 
 Voormalige leden:
 
+- Matthijs Arnoldus
+- Jefry el Bhwash (o.a. QQ B4)
 - Laura Geurtsen
 - Donne Gerlich (QQ B2)
 - Nathan Douenburg
+- Tip ten Brink
 - Aniek Sips (QQ B3)
 - Pien Abbink
-- Jefry el Bhwash (o.a. QQ B4)
 - Senne Drent
 - Leander Bindt
 - Sanne van Beek (QQ B5)
+- Jesper van der Marel
+- Liam Timmerman
 
 De commissie is opgericht in bestuursjaar 2 (2020/2021), door Matthijs, Jefry, Laura en Donne. Met Nathan als designer hebben ze in korte tijd een hele mooie website in elkaar gezet, die live ging in 2021. Dat jaar werd ook de eerste 24-uursvergadering gehouden. De website was vooral een bron van informatie en een uithangbord voor de vereniging, en natuurlijk het thuis van de Spike. Daarnaast was de .ComCom verantwoordelijk voor de e-mail.
 
