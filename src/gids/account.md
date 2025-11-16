@@ -1,5 +1,9 @@
 # Account aanmaken
 
+# OUTDATED
+
+The following information is not up-to-date.
+
 Een account aanmaken begint bij de [Word lid!](https://dsavdodeka.nl/word_lid)-pagina op de website. 
 
 ![Plaatje van de Word lid!-pagina met "Schrijf je in" button.](../images/word_lid.jpg)

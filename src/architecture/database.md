@@ -1,5 +1,9 @@
 # Database
 
+# OUTDATED
+
+The following is no longer up-to-date.
+
 Everything is deployed from the `dodeka` repository. It also contains the "source" for the database (DB, PostgreSQL) and key-value store (KV, Redis).
 
 The most important file is `config.toml`, which contains all practical configuration. In the `build`-folder you can find the source for all deploy scripts (`build/deploy`) and container build files (`build/container`). Using the `confspawn` tool the actual scripts are built from these templates. The results you can find in the various folders in the `use` directory.

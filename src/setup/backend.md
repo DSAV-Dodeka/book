@@ -1,5 +1,9 @@
 # Backend setup
 
+# OUTDATED
+
+The following is no longer up-to-date.
+
 **NOTE**: the backend is now developed from the `dodeka` repository, in the `backend` subdirectory!
 
 Before you can run the backend locally, you must have a Postgres and Redis database setup. Take a look at the [database setup](./setup_docker.md) page for that.

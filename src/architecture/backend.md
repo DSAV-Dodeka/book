@@ -1,5 +1,9 @@
 # Backend Server and authpage
 
+# OUTDATED
+
+The following is no longer up-to-date.
+
 
 **Backend framework (Server)**: Python **[FastAPI](https://github.com/tiangolo/fastapi)** server running on **uvicorn** (managed by **[gunicorn](https://github.com/benoitc/gunicorn)** in production), which uses **[uvloop](https://github.com/MagicStack/uvloop)** as its async event loop.
 

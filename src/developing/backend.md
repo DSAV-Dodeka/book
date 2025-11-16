@@ -1,5 +1,9 @@
 # Backend development
 
+# OUTDATED
+
+All the following information is not up-to-date
+
 ## Project structure
 
 All the application code is inside the `backend/src` directory. This contains five separate packages, of which three act as libraries and two as applications.

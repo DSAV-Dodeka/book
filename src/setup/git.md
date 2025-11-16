@@ -1,5 +1,14 @@
 # Git
 
+## Terminal cheat sheet
+
+```
+# See what branch you are on and what changes you have.
+git status
+```
+
+## Installation
+
 To share code with each other, we use a program called Git. We use Git to download the "online" version of the source code (which is hosted on GitHub) so that we can work on it locally on our own machines. We also use Git to again upload it to the server.
 
 For an in-depth guide to Git, checkout the [Pro Git book](https://git-scm.com/book). For an overview of the most important commands, checkout [GitLab's cheat sheet](https://about.gitlab.com/images/press/git-cheat-sheet.pdf) and [this other one](https://github.com/devaaravmishra/git-commands). Want to perform some specific action? Check out [Git Flight Rules](https://github.com/k88hudson/git-flight-rules). Also, ChatGPT is pretty good at Git nowadays.

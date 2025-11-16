@@ -31,8 +31,6 @@
     - [Backend](./setup/backend.md)
 - [Architecture](./architecture.md)
     - [Frontend vs Backend](./architecture/frontend_backend.md)
-    - [Frontend](./architecture/frontend.md)
-        - [AuthContext](./architecture/frontend/auth_context.md)
     - [Database](./architecture/database.md)
     - [Backend](./architecture/backend.md)
         - [Performance](./architecture/backend/performance.md)
