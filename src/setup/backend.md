@@ -1,8 +1,6 @@
 # Backend setup
 
-# OUTDATED
-
-The following is no longer up-to-date.
+## OUTDATED: not yet correct for new backend
 
 **NOTE**: the backend is now developed from the `dodeka` repository, in the `backend` subdirectory!
 

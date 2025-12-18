@@ -1,8 +1,6 @@
 # Account aanmaken
 
-# OUTDATED
-
-The following information is not up-to-date.
+## OUTDATED: dit verwijst nog naar de oude backend/login
 
 Een account aanmaken begint bij de [Word lid!](https://dsavdodeka.nl/word_lid)-pagina op de website. 
 

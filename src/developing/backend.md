@@ -1,8 +1,6 @@
 # Backend development
 
-# OUTDATED
-
-All the following information is not up-to-date
+## OUTDATED: not yet accurate for new backend
 
 ## Project structure
 

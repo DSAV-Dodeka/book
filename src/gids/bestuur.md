@@ -1,5 +1,7 @@
 # Bestuur
 
+## OUTDATED: dit verwijst nog naar de oude backend/login
+
 Een aantal administratieve taken zijn via de website te regelen. De belangrijkste zijn:
 
 - [Nieuw lid accepteren](./bestuur/nieuw_lid.md)

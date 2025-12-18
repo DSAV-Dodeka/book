@@ -1,10 +1,8 @@
-# Setting up the server from scratch
+# Hetzner
 
-This is all the commands I used when I set up the server from a clean image on January 10 after we migrated the email to the new provider. 
+## Preparing SSH
 
-### Preparing SSH
-
-First we rebuild the image from Ubuntu 22.04.
+First we rebuild the image from Ubuntu 24.04.
 
 We reset the root password using Rescue -> Reset root password. I recommend then changing it to a new password once inside again (through `passwd root`).
 
@@ -36,13 +34,17 @@ chsh --shell /bin/bash
 
 Create a new directory `mkdir /home/backend/.ssh`. Enter this directory (using `cd`) and then do `nano authorized_keys` to open/create a new file there.
 
-Paste in your SSH public key (!) (something like `ssh-ed25519 .... tiptenbrink@tipc`) and save the file (Ctrl-X).
+Paste in your SSH **public** key (generate one using `ssh-keygen -t ed25519 -C "your_email@example.com"`) (the public key looks something like `ssh-ed25519 .... tiptenbrink@tipc`) and save the file (Ctrl-X). If copy-paste is not working, maybe try a different browser and make sure you're not in GUI mode or similar.
 
 Then, ensure the file has the correct permissions:
 
 ```
-chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys
+chmod 700 /home/backend/.ssh && chmod 600 /home/backend/.ssh/authorized_keys
 ```
+
+Then you can log in with `ssh backend@<ip address here>` (make sure it uses the proper private key, so you might have to use the `-i` option). 
+
+Note that it's often had to find out what's going on when it's not working. Be sure that the string in `authorized_keys` precisely matches your public key. Note that sometimes copy-pasting can not work correctly and some characters are changed (like = to -, or _ to -) or maybe you missed one character at the beginning or end. It really needs to match!
 
 ### SSH niceties
 
@@ -52,15 +54,11 @@ Install "xauth" (while logged in as root)
 apt install xauth
 ```
 
-Then, login to backend (`su backend`) and log out again. If you're using a nice terminal emulator, like kitty, you need to add the xterm file to the server. To do this, one time append `kitty +kitten` before your ssh command like:
+If you're using a nice terminal emulator, you might have to add some xterm files. Consult the documentation of your terminal for details.
 
-```
-kitty +kitten ssh backend@<ip here>
-```
+**From this point on we never need to be logged in as root anymore! Always log in via ssh from your terminal**
 
-After that you can just login normally. Other terminal emulators might need other instructions.
-
-**From this point on we never need to be logged in as root anymore!**
+## Dependencies
 
 ### Update packages
 
@@ -71,250 +69,149 @@ sudo apt upgrade
 
 You might have to reboot after this: `reboot`.
 
-### Install basic C ompiler
+### Install basic C compiler and other useful packages
 
 ```
-sudo apt install build-essential
+sudo apt install unzip build-essential
 ```
 
-### Install Rust
+### Install NodeJS
 
-Go to https://rustup.rs/
-
-Run the listed script. Choose "Customize", then profile "minimal".
-
-### Install cargo binary install tools
+Using fnm:
 
 ```
-cargo install cargo-quickinstall
-cargo quickinstall cargo-binstall
+curl -o- https://fnm.vercel.app/install | bash
 ```
 
-### Install nu, tidploy
+Be sure to re-login/start new terminal.
+
+Set-up NodeJS 24:
 
 ```
-cargo binstall nu
-cargo binstall tidploy
+fnm use 24
 ```
 
-### Install GH CLI
+Verify with `node -v`, should return something starting with `v24`.
 
-Follow [these instructions](https://github.com/cli/cli/blob/trunk/docs/install_linux.md).
+### Install Python (with uv)
 
-### Login to DodekaComCom on GitHub
-
-Using its password.
-
-### Setup `gh`
-
-Login using `gh auth login`, then use a correctly scoped auth token that you got from the DodekaComCom account.
-
-### Add `backend` user to Docker group
+First, we install `uv`:
 
 ```
-sudo usermod -aG docker backend
+curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-Then logout and back in again.
-
-### Login to ghcr.io
+Then install Python (free-threading build) with:
 
 ```
-docker login ghcr.io
+uv python install 3.14t
 ```
 
-Use another access token, this one only has to read the org and have access to packages.
+### Install Go
 
-
-### Clone `dodeka`
-
-```
-gh repo clone dsav-dodeka/dodeka
-```
-
-### Set tidploy auth key
-
-Now, ensure all necessary secrets are accessible by the access token you're going to set. Then enter the `dodeka` repository and do:
+Go here to get the latest version (for linux and amd64/x64):
 
 ```
-tidploy auth bws
+https://go.dev/doc/install
 ```
 
-Then enter the access token.
-
-### Deploy
-
-Next, run:
+Currently that would be go1.25.5.linux-amd64. Then download it like:
 
 ```
-tidploy deploy -d deploy/use/production
+curl -OL https://go.dev/dl/go1.25.5.linux-amd64.tar.gz
 ```
 
-This will start the backend and database.
-
-### Optional: restore database
-
-In case you have all the files from the volume that contained the database, you want to restore these. First, get them to the server, for example using `scp`. We assume we have a folder called `backup` in our current directory that contains all the Postgres files. Ensure the database is down again (using `docker compose -p dodeka-production-latest down`).
-
-Then you can do:
+Then put it in the install location with:
 
 ```
-docker run --rm -it -v ./backup:/from -v dodeka-db-volume-production-latest:/to alpine ash
+sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.25.5.linux-amd64.tar.gz
 ```
 
-This will put you into a container with the recently created, empty database at `/to` and the backup at `/from`. First, clean out the new folder using `rm -rf *` while inside the `/to` folder (don't do this in the container root directory!).
-
-Then, you can run:
+Finally, add go to your path by appending the following to the end of `~/.profile`:
 
 ```
-cd /from ; cp -av . /to
+export PATH="$PATH:/usr/local/go/bin"
 ```
 
-Now, restart the database. Everything should work now.
+## Install backend (and frontend)
 
-### Setup nginx
+We did not strictly need to install NodeJS and the frontend as we will not host the frontend ourselves. However, I will explain how to here, since that can be useful as a demo.
 
-Install it:
+### Frontend
 
-```
-sudo apt install nginx
-```
-
-Start it:
+First, let's clone the frontend to the home directory.
 
 ```
-sudo systemctl start nginx
+git clone https://github.com/DSAV-Dodeka/DSAV-Dodeka.github.io.git frontend --filter=blob:none
 ```
 
-For some  extra details also see [the full section on nginx and certificates](./nginx_ssl.md). 
+## Set up reverse proxy
 
-#### Setup non-HTTPS config
+### Installing Caddy
 
-Go to `/etc/nginx`. Every file here is root-protected, so use `sudo` before each of the following commands:
+We will install Caddy. Go to [their docs](https://caddyserver.com/docs/install#debian-ubuntu-raspbian) for the precise command (the one with stable and containing sudo apt update among other things).
 
-Go to the `sites-available` subdirectory.
+### `Caddyfile`
 
-Do `nano api.dsavdodeka.nl` and paste the following basic config:
+### Permissions
 
-```nginx
-server {
-    root /var/www/api.dsavdodeka.nl/html;
+The Caddy server runs as the `caddy` user and if you want to run the demo using a file server, you will have to give it permission to access the files you generate when building the frontend. Therefore, we will create a new group and add both the backend and caddy users to it and give it access to the frontend build output.
 
-    index index.html index.htm index.nginx-debian.html;
-
-    server_name api.dsavdodeka.nl;
-
-    location / {
-            # First attempt to serve request as file, then
-            # as directory, then fall back to displaying a 404.
-            proxy_pass http://localhost:4241;
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection 'upgrade';
-            proxy_set_header Host $host;
-            proxy_cache_bypass $http_upgrade;
-    }
-
-}
-
-server {
-    listen 80;
-}
-```
-
-Create a symlink from the available to enabled:
-
-```
-sudo ln -s /etc/nginx/sites-available/api.dsavdodeka.nl /etc/nginx/sites-enabled/api.dsavdodeka.nl
-```
-
-If necessary, restart nginx:
-
-```
-sudo systemctl restart nginx
-```
-
-If you go to http://api.dsavdodeka.nl (not http**s**) you should get "Hallo: Atleten"!
-
-### Certbot/Let's Encrypt
-
-#### Install snap
-
-```
-sudo apt install snapd
-```
-
-#### Install certbot
-
-```
-sudo snap install --classic certbot
-```
-
-#### Run certbot
-
-```
-sudo certbot --nginx
-```
-
-First, enter your e-mail. Then it will give you a list of domains you want to install the certificate for, choose the number indicating `api.dsavdodeka.nl` (probably 1).
-
-
-### Cleanup nginx config
-
-You probably want to clean up your nginx config.
-
-There might be a server block saying only:
-
-```
-server {
-    listen 80;
-}
-```
-
-Delete this, the Certbot block should handle this now.
-
-If necessary, restart nginx:
-
-```
-sudo systemctl restart nginx
-```
-
-### Optional: install Python and Poetry
-
-You can create database backups and migrate the database using Python. First, we need to install a Python version that has the same major version as the backend server requires.
-
-To make it more easy to install new versions in the future, let's use [`pyenv`](https://github.com/pyenv/pyenv?tab=readme-ov-file#unixmacos). I recommend not installing using homebrew, as that might interfere with some other core packages. Instead, use their install script and follow the instructions to put it into the path. These were, when last checked:
+The following snippets shows all commands you have to run.
 
 ```bash
-curl https://pyenv.run | bash
+# Create a shared group called "webdata"
+sudo groupadd webdata
+# groupadd: creates a new group
+# webdata: the name of the group to create
+
+# Add both users to the webdata group
+sudo usermod -aG webdata backend
+sudo usermod -aG webdata caddy
+# usermod: modify a user account
+# -a: append (add to group without removing from other groups)
+# -G: specify supplementary group(s) to add the user to
+# webdata: the group to add them to
+# backend/caddy: the username to modify
+
+# Change ownership of the client folder
+sudo chown -R backend:webdata /home/backend/frontend/build/client
+# chown: change file owner and group
+# -R: recursive (apply to all files and subdirectories)
+# backend:webdata: set owner to "backend" and group to "webdata"
+# /home/...: the target directory
+
+# Set permissions: owner full, group read+execute
+sudo chmod -R 750 /home/backend/frontend/build/client
+# chmod: change file mode/permissions
+# -R: recursive
+# 750: octal permission code
+#   7 (owner): read(4) + write(2) + execute(1) = full access
+#   5 (group): read(4) + execute(1) = can read and traverse
+#   0 (others): no access
+
+# Make new files inherit the group (setgid bit)
+sudo chmod g+s /home/backend/frontend/build/client
+# g+s: set the setgid bit on the directory
+# This means new files/folders created inside will inherit
+# the "webdata" group instead of the creator's primary group
+
+# Ensure parent directories are traversable
+chmod 755 /home/backend
+chmod 755 /home/backend/frontend
+chmod 755 /home/backend/frontend/build
+# 755: 
+#   7 (owner): full access
+#   5 (group): read + execute
+#   5 (others): read + execute
+# "execute" on a directory means permission to traverse/enter it
+
+# Restart caddy to pick up the new group membership
+sudo systemctl restart caddy
+# systemctl: control the systemd service manager
+# restart: stop and start the service
+# caddy: the service name
+
+# Log out and back in (or run `newgrp webdata`) for backend user to pick up the new group
+# newgrp webdata: starts a new shell with webdata as the active group
 ```
-
-To add it to path and load it automatically: add to `.bashrc` (in the server home folder):
-
-```
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-```
-
-Then, install the correct Python version using:
-
-`pyenv install <exact version>`
-
-Note that it will install Python from source, so this could take a while. If there is an error, take a look at all required [packages that must be installed](https://github.com/pyenv/pyenv/wiki#suggested-build-environment).
-
-Then, go into the project directory and run `pyenv local <exact version>`. Now, the Python version should be the correct one if you run `python`. 
-
-Next, we will install Poetry to manage our dependencies. I recommend using `pipx` (which you can just install using `sudo apt install pipx`), so `pipx install poetry`. 
-
-Then, we want to make our Poetry environment use the correct version. Most likely, the Python version was installed into: `~/.pyenv/versions/<version>/bin/python`, so then you can use (once you are in the `backend/src` directory):
-
-```bash
-poetry env use ~/.pyenv/versions/<version>/bin/python
-```
-
-Now, we can run commands in our envrionment using `poetry run <command>`.
-
-### Fin
-
-That was it, with less than 300 lines of instructions can completely set up a Linux server from scratch, in a simple and secure way.

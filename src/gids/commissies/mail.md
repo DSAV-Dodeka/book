@@ -1,5 +1,7 @@
 # Commissiemail
 
+## OUTDATED: We gebruiken nu mail direct van Google
+
 We zijn recent overgestapt op een nieuwe provider, https://junda.nl. 
 
 ## Verander je wachtwoord

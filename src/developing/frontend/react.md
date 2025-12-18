@@ -1,5 +1,7 @@
 # React and React Router
 
+## OUTDATED: not yet up to date for new React Router setup
+
 We use a concept called "client-side routing", which means that code on the page itself sends you to the subpages. This is also known as a "single-page application". For more details, see the section on [architecture](../../architecture/frontend.md).
 
 ## Routes
@@ -32,4 +34,4 @@ const {authState, setAuthState} = useContext(authContext)
 
 Then, by checking `authState.isLoaded && authState.isAuthenticated` you can check whether someone has been authenticated as a member and whether the route should be available. Note: any data that you store on the frontend is publicly available (either through the source code, but also using 'inspect element' in the browser)! So any sensitive data should be stored in the backend and retrieved using requests. See [the section on integrating the backend and frontend](../backend/integrate_frontend.md).
 
-You can use `authState.scope.includes("<role>")` to check if someone has a role, but remember someone can just edit this code in the browser. So any information available on pages stored in the frontend repository should nto be sensitive. So it's fine to simply display the page skeleton based on checking the authState, but don't show private data based on that. 
+You can use `authState.scope.includes("<role>")` to check if someone has a role, but remember someone can just edit this code in the browser. So any information available on pages stored in the frontend repository should nto be sensitive. So it's fine to simply display the page skeleton based on checking the authState, but don't show private data based on that.

@@ -6,7 +6,7 @@ It is unmanaged because we have full control over the operating system. We need 
 
 ## Webportal
 
-The webportal for the server can be accessed from <https://console.hetzner.cloud>. The account we use is studentenatletiek@av40.nl. You need 2FA to log in.
+The webportal for the server can be accessed from <https://console.hetzner.cloud>. The account we use is dsavdodeka@gmail.com. You need 2FA to log in.
 
 The most important things you can do from the portal are:
 
@@ -64,4 +64,4 @@ Furthermore, the server also requires nginx as a reverse proxy and certbot for S
 
 ## File locations
 
-Currently, mailcow is in /opt/mailcow-dockerized and the dodeka repository is in /home/backend/dodeka.
+Currently, the dodeka repository is in /home/backend/dodeka.
