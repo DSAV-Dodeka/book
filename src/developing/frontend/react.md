@@ -8,7 +8,7 @@ We use a concept called "client-side routing", which means that code on the page
 
 ### Define a new route
 
-To define a route, add a an element inside teh <Routes> element in `src/App.tsx`:
+To define a route, add a an element inside the `<Routes>` element in `src/App.tsx`:
 
 ```tsx
 <Route path="/vereniging" element={<Vereniging />} />
