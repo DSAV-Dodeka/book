@@ -14,7 +14,7 @@ Hier houden we alle veranderingen bij. Dit gaat specifiek om code, niet om conte
 
 ### Added (frontend)
 
-* A new "Pas aan" feature has been added for admins to manage the klassementen. This makes use of the 2.2 backend update. 
+* A new "Pas aan" feature has been added for admins to manage the klassementen. This makes use of the 2.2 backend update.
     * It allows you to start new classifications
     * You can select classifications and modify their start, end and freeze date
     * You can make the database recompute the points based on whether or not you want to show the points added after freezing
@@ -47,7 +47,7 @@ Senne en Tip hebben code aan deze release bijgedragen. We are now at 591 commits
 * `<server>/admin/class/modify/` (modifies a classification)
 * `<server>/admin/class/remove/{class_id}` (removes classification with id class_id)
 * `<server>/member/get_with_info/{rank_type}/` (Will replace `<server>/members/class/get/{rank_type}/`, but added with different name to avoid breaking change, this also returns last_updated and whether the classification is frozen)
-* The last_updated column is now updated when new events are added. 
+* The last_updated column is now updated when new events are added.
 * (Senne) `<server>/admin/update/training` has been added (not yet in use by frontend) as the start of the training registration update.
 * New `update_by_unique` store method for updating an entire row based on a simple where condition.
 
@@ -73,7 +73,7 @@ Matthijs en Tip hebben code aan deze release bijgedragen.
 
 ### Stats
 
-We are now at 359 commits on the backend and 922 commits on the frontend. 
+We are now at 359 commits on the backend and 922 commits on the frontend.
 
 ### Added (frontend)
 - An explanation on the classification has been added to the classification page.
@@ -108,7 +108,7 @@ We are now at 359 commits on the backend and 922 commits on the frontend.
 ### Changed (backend)
 - **Types**: The entire backend now passes mypy's type checker (see [the PR](https://github.com/DSAV-Dodeka/backend/pull/68))!
 - **Better context/dependency injection**: The previous system was not perfect and it was still not easy to write tests. Lots of improvements have been made, utilizing FastAPI Depends and making it possible to easily wrap a single function call to make the caller testable. See [#64](https://github.com/DSAV-Dodeka/backend/pull/64), [#65](https://github.com/DSAV-Dodeka/backend/pull/64), [#70](https://github.com/DSAV-Dodeka/backend/pull/70) and [#71](https://github.com/DSAV-Dodeka/backend/pull/71).
-- **Better logging**: Logging had been lackluster while waiting for a better solution. This has now arrived with the adoption of loguru. Logging is now much more nicely formatted and it will be easily possible in the future to collect and show the logs in a central place, although that is not yet implemented. Some of the startup code has also been refactored as part of the logging effort. 
+- **Better logging**: Logging had been lackluster while waiting for a better solution. This has now arrived with the adoption of loguru. Logging is now much more nicely formatted and it will be easily possible in the future to collect and show the logs in a central place, although that is not yet implemented. Some of the startup code has also been refactored as part of the logging effort.
 - **Check for role on router basis**: For certain routers, we now check whether they are requested by admins or members for all routes inside the router, making it harder to forget to add a check. The header checking logic has also been refactored and some tests have been added. Much better than the manual `if` check we did before. This also includes some minor refactor and fixes for access token verification.
 - There are now different router tags, which makes it easier to find all the different API endpoints in the OpenAPI docs view.
 
@@ -160,7 +160,7 @@ Leander, Matthijs en Tip hebben code aan deze release bijgedragen.
 
 - Major refactor of backend code, which separates auth code from app-specific code
 - Updated some major dependencies, including Pydantic to v2
-- **Database schema update**: 
+- **Database schema update**:
     - `classifications` table added to store a classification, which lasts for half a year and can be either "points" or "training".
     - `class_events` table added, which stores all events that have been held (borrel, NSK, training, ...). Possibly related to a specific classification.
     - `class_event_points` table added, which stores how many points a specific user has received for a specific event. In general, users will have the same amount of points per event, but this flexibility allows us to change that later.

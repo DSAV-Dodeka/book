@@ -56,11 +56,6 @@ sudo apt install
 
 Ocasionally, Ubuntu itself might also get an update. It is best to only update once there is a new LTS version. 
 
-## Required packages
-
-For running deployment scripts, three main tools must be installed, poetry, Docker (including Docker Compose) and the GitHub CLI. Make sure these are occasionally updated.
-
-Furthermore, the server also requires nginx as a reverse proxy and certbot for SSL certificates. We use Ubuntu's packaged nginx and we use a snap package for certbot.
 
 ## File locations
 

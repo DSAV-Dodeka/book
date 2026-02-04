@@ -2,6 +2,35 @@
 
 This contains the most important information to get you up and running and productive.
 
+
+## Frontend
+
+Open the command line in the folder where you downloaded DSAV-Dodeka.github.io / open the terminal in VS Code (Ctrl+`)
+
+### Run the website locally
+
+(In your `dodekafrontend` folder, containing the package.json)
+
+```
+npm run dev
+```
+
+The website is now available in your browser at http://localhost:3000.
+
+### Update dependencies
+
+```
+npm install
+```
+
+## Backend
+
+(In your `dodeka/backend` folder, containing the pyproject.toml)
+
+```
+uv run dev
+```
+
 ## Git
 
 Open the command line in the folder where you downloaded DSAV-Dodeka.github.io / open the terminal in VS Code (Ctrl+`)
@@ -56,22 +85,4 @@ If you did some stuff you don't know how to revert, but also don't care to save 
 
 ```
 git reset --hard
-```
-
-## Frontend
-
-Open the command line in the folder where you downloaded DSAV-Dodeka.github.io / open the terminal in VS Code (Ctrl+`)
-
-### Run the website locally
-
-```
-npm run dev
-```
-
-The website is now available in your browser at http://localhost:3000.
-
-### Update dependencies
-
-```
-npm install
 ```

@@ -215,3 +215,95 @@ sudo systemctl restart caddy
 # Log out and back in (or run `newgrp webdata`) for backend user to pick up the new group
 # newgrp webdata: starts a new shell with webdata as the active group
 ```
+
+## Backup volume creation
+
+When you create a volume in the Hetzner Cloud Console and attach it to a server, it gets mounted with an auto-generated name like `/mnt/HC_Volume_104307139`. This guide shows how to rename the mount point to `/mnt/backup`.
+
+Ensure you have a Hetzner Cloud volume attached to the server!
+
+### Step 1: Identify Your Volume
+```bash
+ls -l /dev/disk/by-id/
+```
+
+Look for something like `scsi-0HC_Volume_XXXXXXXX`.
+
+### Step 2: Unmount the Volume
+```bash
+sudo umount /mnt/HC_Volume_XXXXXXXX
+```
+
+### Step 3: Create New Mount Point
+```bash
+sudo mkdir /mnt/backup
+```
+
+### Step 4: Update /etc/fstab
+
+Edit fstab:
+```bash
+sudo nano /etc/fstab
+```
+
+Remove the old auto-generated line, then add:
+```
+/dev/disk/by-id/scsi-0HC_Volume_XXXXXXXX /mnt/backup xfs discard,nofail,defaults 0 0
+```
+
+### Step 5: Mount and Set Ownership
+```bash
+sudo mount /mnt/backup
+sudo chown backend:backend /mnt/backup
+```
+
+### Step 6: Verify
+```bash
+df -Th /mnt/backup
+ls -la /mnt/backup
+```
+
+### Step 7: Clean Up Old Mount Point
+```bash
+sudo rmdir /mnt/HC_Volume_XXXXXXXX
+```
+
+### Step 8: Test Persistence
+
+Reboot and confirm the volume mounts correctly:
+```bash
+sudo reboot
+# after reboot:
+lsblk
+```
+
+## Restic
+
+### Installation
+
+Download and install restic v0.18.1:
+```bash
+curl -L https://github.com/restic/restic/releases/download/v0.18.1/restic_0.18.1_linux_amd64.bz2 | bunzip2 > /home/backend/.local/bin/restic && chmod +x /home/backend/.local/bin/restic
+```
+
+After installing, you can update to the latest version with:
+```bash
+restic self-update
+```
+
+> **Note:** Check the [Restic GitHub releases page](https://github.com/restic/restic/releases) to verify you're getting the latest version, as v0.18.1 may no longer be current.
+
+### Initialize Repository
+
+First, create a password file (be sure to replace it with an actual randomly generated password!):
+```bash
+echo "your-secure-password-here" > /mnt/backup/.restic-password
+chmod 600 /mnt/backup/.restic-password
+```
+
+Then initialize the repository:
+```bash
+restic init --repo /mnt/backup/restic --password-file /mnt/backup/.restic-password
+```
+
+The backup cron job and log rotation are set up automatically by `install-services.sh` (see [Environments](../environments.md)).
