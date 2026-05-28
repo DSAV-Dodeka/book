@@ -6,6 +6,8 @@ The backend auth server is a Go binary that uses the [tiauth-faroe](https://gith
 require github.com/tiptenbrink/tiauth-faroe/tiauth v0.1.1
 ```
 
+For now, `tiauth-faroe` is managed by Tip. Ask him if you want something updated or if the CI is broken. Feel free to replace it with something else, there are many other solutions to authentication.
+
 ## Running in development
 
 When you run `uv run dev` from the `backend/` directory, the auth server is started automatically alongside the Python backend. If the auth binary is not present, it will be downloaded from GitHub Actions artifacts (requires the `gh` CLI).
@@ -14,29 +16,10 @@ You can also run the auth server standalone:
 
 ```shell
 cd backend/auth
-CGO_ENABLED=1 go run . --env-file envs/test/.env --enable-reset --interactive
+go run . --env-file envs/test/.env
 ```
 
-To force-download or update the pre-built binary:
-
-```shell
-cd backend
-uv run update-auth
-```
-
-## Releasing a new tiauth-faroe version
-
-The tiauth-faroe Go module lives in a subdirectory (`tiauth/`) of the tiauth-faroe repository. Go modules in subdirectories require git tags prefixed with the subdirectory path.
-
-To release a new version:
-
-```shell
-# In the tiauth-faroe repository
-git tag -a tiauth/v0.2.0 -m "description of changes"
-git push origin tiauth/v0.2.0
-```
-
-The Go module proxy (`proxy.golang.org`) picks up the tag automatically from GitHub. No CI or publish step is needed.
+The specific version of the auth binary is set in `dodeka/backend/auth/auth-binary.sum`, using SHA256 hashes of the executables in the GitHub release executables for each platform. When a new release for the auth binaries are made, you can automatically update `auth-binary.sum` using `uv run update-auth`. Whenever you run `uv run dev` it checks whether the local binary still has the same hash as described in `auth-binary.sum`. If you compiled a version locally and want to use that, you can use `--local-auth` as a CLI flag. 
 
 ## Updating the dependency in dodeka
 
@@ -52,11 +35,9 @@ go mod tidy
 
 ## Building
 
-Building requires CGO because of the [mattn/go-sqlite3](https://github.com/mattn/go-sqlite3) dependency:
-
 ```shell
 cd backend/auth
-CGO_ENABLED=1 go build -o auth .
+go build -o auth .
 ```
 
 CI builds for Linux (x64), macOS (Apple Silicon), and Windows (x64) are produced automatically by GitHub Actions when files in `backend/auth/` change. See `.github/workflows/ci.yml`.

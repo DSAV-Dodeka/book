@@ -1,0 +1,29 @@
+Dus jij bent de nieuwe chef Backend. Wat moet je allemaal weten?
+- Alles wat met de backend te maken heeft zit in de [dodeka]() repository
+  - In die repository zitten twee folders:
+    - `dodeka/backend` is de code
+    - `dodeka/deploy` bevat scripts die handig zijn om de server op te zetten
+- Er is een computer in de cloud, in Duitsland om precies te zijn, die de code uitvoert
+  - Onze cloudprovider heet [Hetzner](), we zitten in een datacentrum dat zij beheren
+  - We hebben niet een volledige computer, maar een "VM" (virtual machine)
+    - Dat is een deel van een echte computer, we huren een deel van een grotere computer
+    - Die VM draait niet op Windows of macOS, maar op Linux
+      - Waarom? Omdat dit goedkoper is, het is namelijk gratis software, en wordt heel veel voor deze use case gebruikt
+        - Daarom is er ook veel software en documentatie voor beschikbaar
+    - Specifiek draaien we op Ubuntu, een specifieke variant van Linux
+      - Waarom? Omdat die populair is en veel gebruikt wordt. Je kunt er veel online over vinden en het staat goed bekend
+    - Je kunt de VM niet in met een normaal grafisch computerscherm waar je met je muis kunt rondklikken
+      - In plaats daarvan gebruik je de "terminal"/console en voer je commando's uit
+        - Dit is makkelijk en goedkoop, anders zou je meer rekenkracht nodig moeten hebben terwijl je maar weinig hoeft te doen
+      - Je kan verbinden met die VM via "SSH", dit doe je vanuit je eigen terminal
+        - Hiervoor moet je een SSH key aanmaken en de VM die key laten vertrouwen
+    - Op de VM hebben we een kopie van de `dodeka` repository staan
+    - We hebben zogenaamde "systemd services" gedefinieerd die automatisch de commando's die de code runnen aanroepen
+      - Deze starten automatisch op als je de VM opnieuw opstart
+      - Er zijn twee services: `dodeka-auth` en `dodeka-backend` services. 
+        - De eerste runt alle code die met authenticatie te maken heeft, de tweede runt onze eigen Python code
+      - Met `journalctl` kun je de logs zien van die langlopende programma's, zie ook [environments]()
+    - Alle data staat in bestanden opgeslagen, zogenaamde SQLite databases. Deze worden in de folder waar ook de repository zit opgeslagen
+      - We hebben een "cronjob" (een taak die om de zoveel tijd wordt uitgevoerd) die regelmatig backups maakt en die opslaat in `/mnt/backup`
+      - Zie [backups]() voor meer details
+    - Hetzner maakt ook automatisch een dagelijkse backup van alle bestanden van de server, je kunt makkelijk resetten naar een eerdere versie

@@ -16,6 +16,8 @@ Each snapshot is tagged (e.g. `db_dodeka`, `env_production`) so you can filter w
 
 See [server from scratch](./production/server_scratch.md) how to set it up on the server.
 
+The backup scripts expect `restic` to be installed at `/home/backend/.local/bin/restic`.
+
 ## Setting up the cron job
 
 The cron script (`dodeka-db-cron.sh`) runs a backup and then prunes old snapshots according to the retention policy. A pre-made crontab file is provided that backs up both production and demo every 12 minutes (with a 6-minute offset so they don't overlap).
