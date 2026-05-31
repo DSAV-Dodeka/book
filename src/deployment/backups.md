@@ -2,7 +2,7 @@
 
 The database is backed up using [Restic](https://restic.net/), which provides incremental, encrypted, deduplicated backups. Each backup is compressed with zstd before being stored. Because Restic deduplicates across snapshots, frequent backups are storage-efficient.
 
-The backup scripts live in `deploy/` in the dodeka repository. See `deploy/BACKUP.md` for the full reference.
+The backup scripts live in `deploy/` in the dodeka repository. The implementation source of truth is `dodeka/deploy/dodeka-db-common.sh`, `dodeka-db-backup.sh`, `dodeka-db-cron.sh`, and `dodeka-db-restore.sh`.
 
 ## How it works
 
@@ -16,7 +16,7 @@ Each snapshot is tagged (e.g. `db_dodeka`, `env_production`) so you can filter w
 
 See [server from scratch](./production/server_scratch.md) how to set it up on the server.
 
-The backup scripts expect `restic` to be installed at `/home/backend/.local/bin/restic`.
+The backup scripts expect `restic` at `/home/backend/.local/bin/restic`, and `sqlite3` and `zstd` installed on the server. The install steps are in [server from scratch](./production/server_scratch.md).
 
 ## Setting up the cron job
 
@@ -74,9 +74,10 @@ The restore script will:
 ## Listing snapshots
 
 ```bash
-# All dodeka snapshots
-restic -r /mnt/backup/restic --password-file /mnt/backup/.restic-password snapshots --tag db_dodeka
+# Prefer the helper used by the scripts when possible.
+# Production snapshots:
+restic -r /mnt/backup/restic --password-file /mnt/backup/.restic-password snapshots --tag "db_dodeka,env_production"
 
-# Only production
-restic -r /mnt/backup/restic --password-file /mnt/backup/.restic-password snapshots --tag env_production
+# Demo snapshots:
+restic -r /mnt/backup/restic --password-file /mnt/backup/.restic-password snapshots --tag "db_dodeka,env_demo"
 ```

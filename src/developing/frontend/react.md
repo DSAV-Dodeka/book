@@ -1,6 +1,6 @@
 # React and React Router
 
-We use [React Router 7](https://reactrouter.com/) for client-side routing, which means code on the page itself handles navigation between subpages. This is also known as a "single-page application". For more details, see the section on [architecture](../../architecture/frontend.md).
+We use [React Router 7](https://reactrouter.com/) for client-side routing, which means code on the page itself handles navigation between subpages. This is also known as a "single-page application". For more details, see the section on [architecture](../../architecture/frontend_backend.md).
 
 ## Routes
 
@@ -12,7 +12,7 @@ Routes are defined in `src/routes.ts` using React Router's configuration API.
 import { type RouteConfig, route } from "@react-router/dev/routes";
 
 export default [
-  route("contact", "./pages/contact/contact.tsx"),
+  route("contact", "./pages/contact/contact/contact.tsx"),
 ] satisfies RouteConfig;
 ```
 
@@ -28,7 +28,7 @@ import { type RouteConfig, layout, route, index } from "@react-router/dev/routes
 export default [
   layout("./pages/layout.tsx", [
     index("./pages/home/home.tsx"),           // Shows at /
-    route("contact", "./pages/contact.tsx"),  // Shows at /contact
+    route("contact", "./pages/contact/contact/contact.tsx"),  // Shows at /contact
   ]),
 ] satisfies RouteConfig;
 ```
@@ -57,9 +57,9 @@ Group related routes under a common path prefix:
 import { prefix, route, index } from "@react-router/dev/routes";
 
 ...prefix("vereniging", [
-  index("./pages/vereniging/vereniging.tsx"),      // /vereniging
-  route("bestuur", "./pages/vereniging/bestuur.tsx"),  // /vereniging/bestuur
-  route("commissies", "./pages/vereniging/commissies.tsx"),  // /vereniging/commissies
+  index("./pages/vereniging/vereniging/vereniging.tsx"),      // /vereniging
+  route("bestuur", "./pages/vereniging/bestuur/bestuur.tsx"),  // /vereniging/bestuur
+  route("commissies", "./pages/vereniging/commissies/commissies.tsx"),  // /vereniging/commissies
 ]),
 ```
 
@@ -68,7 +68,7 @@ import { prefix, route, index } from "@react-router/dev/routes";
 Use `:param` for dynamic segments:
 
 ```ts
-route(":wedstrijdPath", "./pages/wedstrijden/eigen/wedstrijd.tsx"),
+route(":wedstrijdPath", "./pages/wedstrijden/eigen/wedstrijd-loader.tsx"),
 ```
 
 Access the parameter in your component:
@@ -115,7 +115,7 @@ route("example", "./pages/example/example.tsx"),
 
 ## Adding to the navigation bar
 
-Edit `src/components/Navigation Bar/NavigationBar.tsx` to add your page to the menu. Add it to both `navItems` (desktop) and `navMobileContainer` (mobile).
+Edit `src/components/Navigation Bar/NavigationBar.tsx` to add your page to the menu. The desktop and mobile menus are currently JSX in that component, not exported data arrays.
 
 ## Prerendering
 

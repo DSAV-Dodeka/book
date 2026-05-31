@@ -2,6 +2,14 @@
 
 The backend is developed from the [dodeka](https://github.com/dsav-dodeka/dodeka) repository, in the `backend` folder. 
 
+## Downloading the code
+
+The backend is in a separate repository from the frontend. Clone it next to your `dodekafrontend` folder:
+
+```shell
+git clone https://github.com/DSAV-Dodeka/dodeka.git dodeka
+```
+
 **Run all commands from the `dodeka/backend` folder!**
 
 * [Install `uv`](https://github.com/astral-sh/uv?tab=readme-ov-file#installation). uv is like npm, but then for Python. I recommend using the standalone installer.

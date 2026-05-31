@@ -6,4 +6,4 @@ No matter what you do, you'll need to install Git, so check out the [instruction
 
 If you are only doing things on the frontend, all you need to know is how to [setup the frontend](./setup/frontend.md).
 
-If you are developing the backend, you will probably want to also test things on the frontend, but you will definitely need to setup first [the databases](./setup/docker.md) locally using a tool called Docker, and then you can [setup the backend application](./setup/backend.md) itself.
+If you are developing the backend, you will probably also want to test things on the frontend. Set up the backend with [Backend setup](./setup/backend.md). The current backend uses SQLite databases configured through `dodeka/backend/envs/<environment>/.env`. It should just work automatically and you should not have to perform any special set up.

@@ -1,10 +1,10 @@
 Dus jij bent de nieuwe chef Backend. Wat moet je allemaal weten?
-- Alles wat met de backend te maken heeft zit in de [dodeka]() repository
+- Alles wat met de backend te maken heeft zit in de [dodeka](https://github.com/DSAV-Dodeka/dodeka) repository
   - In die repository zitten twee folders:
     - `dodeka/backend` is de code
     - `dodeka/deploy` bevat scripts die handig zijn om de server op te zetten
 - Er is een computer in de cloud, in Duitsland om precies te zijn, die de code uitvoert
-  - Onze cloudprovider heet [Hetzner](), we zitten in een datacentrum dat zij beheren
+  - Onze cloudprovider heet [Hetzner](../deployment/server.md), we zitten in een datacentrum dat zij beheren
   - We hebben niet een volledige computer, maar een "VM" (virtual machine)
     - Dat is een deel van een echte computer, we huren een deel van een grotere computer
     - Die VM draait niet op Windows of macOS, maar op Linux
@@ -18,12 +18,12 @@ Dus jij bent de nieuwe chef Backend. Wat moet je allemaal weten?
       - Je kan verbinden met die VM via "SSH", dit doe je vanuit je eigen terminal
         - Hiervoor moet je een SSH key aanmaken en de VM die key laten vertrouwen
     - Op de VM hebben we een kopie van de `dodeka` repository staan
-    - We hebben zogenaamde "systemd services" gedefinieerd die automatisch de commando's die de code runnen aanroepen
+    - We hebben zogenaamde "systemd services" gedefinieerd die automatisch de commando's aanroepen die de code runnen
       - Deze starten automatisch op als je de VM opnieuw opstart
       - Er zijn twee services: `dodeka-auth` en `dodeka-backend` services. 
         - De eerste runt alle code die met authenticatie te maken heeft, de tweede runt onze eigen Python code
-      - Met `journalctl` kun je de logs zien van die langlopende programma's, zie ook [environments]()
+      - Met `journalctl` kun je de logs zien van die langlopende programma's, zie ook [deployment](../deployment.md)
     - Alle data staat in bestanden opgeslagen, zogenaamde SQLite databases. Deze worden in de folder waar ook de repository zit opgeslagen
       - We hebben een "cronjob" (een taak die om de zoveel tijd wordt uitgevoerd) die regelmatig backups maakt en die opslaat in `/mnt/backup`
-      - Zie [backups]() voor meer details
+      - Zie [backups](../deployment/backups.md) voor meer details
     - Hetzner maakt ook automatisch een dagelijkse backup van alle bestanden van de server, je kunt makkelijk resetten naar een eerdere versie

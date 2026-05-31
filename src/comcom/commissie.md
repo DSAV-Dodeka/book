@@ -13,16 +13,14 @@ De huidige commissie is:
 
 Voormalige leden (op volgorde van commissie verlaten):
 
-- Matthijs Arnoldus
-- Jefry el Bhwash (o.a. QQ B4)
 - Laura Geurtsen
 - Donne Gerlich (QQ B2)
 - Nathan Douenburg
-- Tip ten Brink
 - Aniek Sips (QQ B3)
 - Pien Abbink
 - Senne Drent
 - Leander Bindt
+- Jefry el Bhwash (o.a. QQ B4)
 - Sanne van Beek (QQ B5)
 - Matthijs Arnoldus (is een recordaantal aantal van 5 commissiejaren lid geweest)
 - Tip ten Brink

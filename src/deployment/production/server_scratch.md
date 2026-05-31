@@ -72,7 +72,7 @@ You might have to reboot after this: `reboot`.
 ### Install basic C compiler and other useful packages
 
 ```
-sudo apt install unzip build-essential
+sudo apt install unzip build-essential sqlite3 zstd
 ```
 
 ### Install NodeJS
@@ -109,22 +109,22 @@ uv python install 3.14t
 
 ### Install Go
 
-Go here to get the latest version (for linux and amd64/x64):
+Check `dodeka/backend/auth/go.mod` for the Go version required by the auth server, then download that version for linux amd64/x64 from:
 
 ```
 https://go.dev/doc/install
 ```
 
-Currently that would be go1.25.5.linux-amd64. Then download it like:
+For example:
 
 ```
-curl -OL https://go.dev/dl/go1.25.5.linux-amd64.tar.gz
+curl -OL https://go.dev/dl/go<version>.linux-amd64.tar.gz
 ```
 
 Then put it in the install location with:
 
 ```
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.25.5.linux-amd64.tar.gz
+sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go<version>.linux-amd64.tar.gz
 ```
 
 Finally, add go to your path by appending the following to the end of `~/.profile`:
@@ -152,6 +152,55 @@ git clone https://github.com/DSAV-Dodeka/DSAV-Dodeka.github.io.git frontend --fi
 We will install Caddy. Go to [their docs](https://caddyserver.com/docs/install#debian-ubuntu-raspbian) for the precise command (the one with stable and containing sudo apt update among other things).
 
 ### `Caddyfile`
+
+```
+demo.dsavdodeka.nl {
+    # Set the document root for all requests
+    root * /home/backend/frontend/build/client
+    # Enable static file serving
+    file_server
+    # Try to serve the requested file, fall back to SPA entry point if not found
+    try_files {path} __spa-fallback.html
+}
+
+# Backend API reverse proxy
+backend.dsavdodeka.nl {
+    # Create a named matcher "private" that matches:
+    # - /private (exact match, no trailing slash)
+    # - /private/* (any path starting with /private/)
+    @private path /private /private/*
+    # Return 403 Forbidden for any request matching @private, before it reaches the proxy
+    respond @private 403
+
+    # Forward all other requests to the production backend service
+    reverse_proxy localhost:12980
+}
+
+# Auth service reverse proxy
+auth.dsavdodeka.nl {
+    # Forward all requests to the production auth service
+    reverse_proxy localhost:12970
+}
+
+# Backend API reverse proxy
+backend-demo.dsavdodeka.nl {
+    # Create a named matcher "private" that matches:
+    # - /private (exact match, no trailing slash)
+    # - /private/* (any path starting with /private/)
+    @private path /private /private/*
+    # Return 403 Forbidden for any request matching @private, before it reaches the proxy
+    respond @private 403
+
+    # Forward all other requests to the demo backend service
+    reverse_proxy localhost:12880
+}
+
+# Auth service reverse proxy
+auth-demo.dsavdodeka.nl {
+    # Forward all requests to the demo auth service
+    reverse_proxy localhost:12870
+}
+```
 
 ### Permissions
 

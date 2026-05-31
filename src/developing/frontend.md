@@ -1,6 +1,6 @@
 # Frontend development
 
-For more in-depth details on why certain decisions were made, see the [architecture section](../architecture/frontend.md).
+For more in-depth details on why certain decisions were made, see the [frontend/backend architecture section](../architecture/frontend_backend.md).
 
 The frontend development can be divided roughly into three sections:
 
